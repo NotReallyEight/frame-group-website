@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";

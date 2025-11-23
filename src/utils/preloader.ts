@@ -7,7 +7,6 @@ export const isPageRefresh = (): boolean => {
 
   const entries = performance.getEntriesByType("navigation");
   const nav = entries[0] as PerformanceNavigationTiming | undefined;
-  console.log("🚀 ~ isPageRefresh ~ nav:", nav);
 
   if (!nav) return false;
 
