@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import React, { useState } from "react";
 import VerticalSeparatorLine from "./VerticalSeparatorLine";
 
@@ -18,12 +17,12 @@ const NavbarSections = (props: Props) => {
       <div className="hidden flex-row items-center justify-center gap-7 md:flex">
         {props.sections.map((section, index) => (
           <React.Fragment key={`section-desktop-${index}`}>
-            <Link
+            <a
               href={section.href}
               className="font-family-secondary text-shadow-gold-sm link-hover-scale text-center text-white lg:text-xl"
             >
               {section.name}
-            </Link>
+            </a>
             {/* Vertical Separator Line */}
             {index < props.sections.length - 1 && (
               <VerticalSeparatorLine color="dustyBlue" />
@@ -32,15 +31,17 @@ const NavbarSections = (props: Props) => {
         ))}
       </div>
       {/* Navbar sections - mobile */}
-      <div
+      <button
+        type="button"
         className={`mr-5 flex h-[5vmin] cursor-pointer items-center justify-center ${dropdownOpened ? "burger-menu-open" : ""} md:hidden`}
         onClick={() => {
           setDropdownOpened(!dropdownOpened);
           props.toggleBurgerMenu();
         }}
+        title="Open navigation menu"
       >
         <div className="burger-menu" />
-      </div>
+      </button>
     </>
   );
 };
