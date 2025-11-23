@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   keywords: ["fotografia", "fotografi frame", "fotografi", "frame"],
 };
 
-export default async function Contacts() {
+export default function Contacts() {
   return (
     <main className="flex h-dvh flex-col">
       <Navbar />
