@@ -101,7 +101,7 @@ export default function Home() {
 
   useEffect(() => {
     if (hasVisited && !refresh) {
-      setLoading(false);
+      Promise.resolve().then(() => setLoading(false));
       return;
     }
 
@@ -118,7 +118,7 @@ export default function Home() {
       clearTimeout(firstPreloaderIndexTimeout);
       clearTimeout(preloaderFinishTimeout);
     };
-  }, []);
+  }, [hasVisited, refresh]);
 
   useGSAP(
     () => {

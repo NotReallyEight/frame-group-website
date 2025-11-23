@@ -12,6 +12,8 @@ const Logo = ({ dark = false, redirects = true, bigger = false }: Props) => (
   <ConditionalWrapper
     condition={redirects}
     wrapper={(children) => (
+      // Note: the <Link /> component would break our rendering
+      // eslint-disable-next-line @next/next/no-html-link-for-pages
       <a href="/" title="Fotografi Frame">
         {children}
       </a>
