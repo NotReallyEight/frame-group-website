@@ -1,4 +1,3 @@
-"use cache";
 
 import Navbar from "@/components/Navbar";
 import type { Metadata } from "next";
