@@ -1,11 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import React, { type ComponentProps, useState } from "react";
+import React, { useState } from "react";
 import VerticalSeparatorLine from "./VerticalSeparatorLine";
 
 type Props = {
-  sections: { name: string; href: ComponentProps<typeof Link>["href"] }[];
+  sections: { name: string; href: string }[];
   toggleBurgerMenu: () => void;
 };
 
@@ -18,12 +17,12 @@ const NavbarSections = (props: Props) => {
       <div className="hidden flex-row items-center justify-center gap-7 md:flex">
         {props.sections.map((section, index) => (
           <React.Fragment key={`section-desktop-${index}`}>
-            <Link
+            <a
               href={section.href}
               className="font-family-secondary text-shadow-gold-sm link-hover-scale text-center text-white lg:text-xl"
             >
               {section.name}
-            </Link>
+            </a>
             {/* Vertical Separator Line */}
             {index < props.sections.length - 1 && (
               <VerticalSeparatorLine color="dustyBlue" />

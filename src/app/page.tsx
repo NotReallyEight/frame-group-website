@@ -10,11 +10,11 @@ import Gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useGSAP } from "@gsap/react";
-import Link from "next/link";
 import Footer from "@/components/Footer";
 import HorizontalSeparatorLine from "@/components/HorizontalSeparatorLine";
 import { slideUpFadeIn } from "@/utils/gsap";
 import { TextPlugin } from "gsap/TextPlugin";
+import { isPageRefresh } from "@/utils/preloader";
 
 const ABOUT_US_PARAGRAPHS = [
   {
@@ -94,8 +94,19 @@ export default function Home() {
   const preloaderLogoVideoRef = useRef<HTMLVideoElement>(null);
   const typewriterRef = useRef<HTMLDivElement>(null);
 
+  const hasVisited =
+    typeof window !== "undefined" &&
+    sessionStorage.getItem("has_visited_home") === "true";
+  const refresh = isPageRefresh();
+
   useEffect(() => {
+    if (hasVisited && !refresh) {
+      setLoading(false);
+      return;
+    }
+
     const firstPreloaderIndexTimeout = setTimeout(() => {
+      sessionStorage.setItem("has_visited_home", "true");
       setLoadingIndex(1);
       void preloaderLogoVideoRef.current?.play();
     }, PRELOADER_FIRST_TRANSITION_DELAY);
@@ -123,7 +134,7 @@ export default function Home() {
         return;
       }
 
-      slideUpFadeIn("#smooth-content");
+      if (!hasVisited || refresh) slideUpFadeIn("#smooth-content");
 
       ScrollSmoother.create({
         wrapper: "#smooth-wrapper",
@@ -235,7 +246,7 @@ export default function Home() {
       {!loading && (
         <div id="smooth-wrapper" ref={scrollSmootherWrapper}>
           {/* Navbar */}
-          <Navbar />
+          <Navbar isHome />
 
           {/* Animated f stop */}
           <div className="font-family-condensed fixed right-8 bottom-8 z-10 text-base text-white lg:text-2xl">
@@ -415,12 +426,12 @@ export default function Home() {
                   </div>
                 </div>
 
-                <Link
+                <a
                   href={"/productions"}
                   className="font-family-regular outline-dusty-blue p-4 text-center text-base font-light text-white outline-1 duration-200 outline-solid hover:outline-white lg:text-xl"
                 >
                   Our portfolio
-                </Link>
+                </a>
               </div>
             </section>
 

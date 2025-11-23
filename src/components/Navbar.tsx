@@ -1,15 +1,19 @@
 "use client";
 
-import { type ComponentProps, useState } from "react";
+import { useState } from "react";
 import Logo from "./Logo";
 import NavbarSections from "./NavbarSections";
-import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { slideUpFadeIn } from "@/utils/gsap";
+import { isPageRefresh } from "@/utils/preloader";
+
+type Props = {
+  isHome?: boolean;
+};
 
 const sections: {
   name: string;
-  href: ComponentProps<typeof Link>["href"];
+  href: string;
 }[] = [
   {
     name: "Home",
@@ -25,15 +29,19 @@ const sections: {
   },
 ];
 
-const Navbar = () => {
+const Navbar = ({ isHome }: Props) => {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState<boolean>(false);
+  const hasVisited =
+    typeof window !== "undefined" &&
+    sessionStorage.getItem("has_visited_home") === "true";
+  const refresh = isPageRefresh();
 
   const handleBurgerMenuToggle = () => {
     setIsBurgerMenuOpen(!isBurgerMenuOpen);
   };
 
   useGSAP(() => {
-    slideUpFadeIn("#navbar");
+    if (isHome && (!hasVisited || refresh)) slideUpFadeIn("#navbar");
   }, []);
 
   return (
@@ -52,13 +60,13 @@ const Navbar = () => {
         className={`font-family-secondary *:bg-grey ${isBurgerMenuOpen ? "navbar-dropdown-sections-open flex" : "hidden"} bg-lighter-black flex-col items-center justify-center space-y-4 rounded-xl p-4 text-center text-base text-white *:self-stretch *:rounded-xl *:p-4 lg:hidden`}
       >
         {sections.map((section, index) => (
-          <Link
+          <a
             href={section.href}
             key={`navbar-dropdown-section-${index}`}
             className="hover:bg-lighter-black duration-200"
           >
             {section.name}
-          </Link>
+          </a>
         ))}
       </div>
     </div>

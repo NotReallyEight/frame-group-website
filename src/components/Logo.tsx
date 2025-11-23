@@ -1,6 +1,5 @@
 import Image from "next/image";
 import images from "@/utils/images";
-import Link from "next/link";
 import ConditionalWrapper from "./ConditionalWrapper";
 
 type Props = {
@@ -13,9 +12,9 @@ const Logo = ({ dark = false, redirects = true, bigger = false }: Props) => (
   <ConditionalWrapper
     condition={redirects}
     wrapper={(children) => (
-      <Link href="/" title="Fotografi Frame">
+      <a href="/" title="Fotografi Frame">
         {children}
-      </Link>
+      </a>
     )}
   >
     <Image
