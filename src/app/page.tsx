@@ -93,13 +93,18 @@ export default function Home() {
   const [threeDotsAnimation, setThreeDotsAnimation] = useState<boolean>(false);
   const preloaderLogoVideoRef = useRef<HTMLVideoElement>(null);
   const typewriterRef = useRef<HTMLDivElement>(null);
+  const [hasVisited, setHasVisited] = useState<boolean | null>(null);
 
-  const hasVisited =
-    typeof window !== "undefined" &&
-    sessionStorage.getItem("has_visited_home") === "true";
   const refresh = isPageRefresh();
 
   useEffect(() => {
+    if (hasVisited === null) {
+      Promise.resolve().then(() =>
+        setHasVisited(sessionStorage.getItem("has_visited_home") === "true")
+      );
+      return;
+    }
+
     if (hasVisited && !refresh) {
       Promise.resolve().then(() => setLoading(false));
       return;
