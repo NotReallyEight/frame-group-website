@@ -109,7 +109,7 @@
 }
 
 @utility hover-underline {
-  @apply after:block after:scale-x-0 after:border-b-2 after:border-b-white after:duration-200 after:content-[''] hover:after:scale-x-100;
+  @apply after:block after:origin-left after:scale-x-0 after:border-b-2 after:border-b-white after:duration-200 after:content-[''] hover:after:scale-x-100;
 }
 
 @utility typewriter {
