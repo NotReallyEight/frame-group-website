@@ -136,20 +136,23 @@ export default function Home() {
                        *:hover-underline *:hover:scale-110 *:duration-200"
           >
             <a
-              className="text-white text-3xl lg:text-6xl font-family-secondary-extra-light self-start"
+              className="text-white text-3xl lg:text-6xl font-family-secondary-extra-light self-start focus:outline-none focus:ring-2 focus:ring-white"
               href="/events"
+              aria-label="Navigate to Events page"
             >
               EVENTI
             </a>
             <a
-              className="text-white text-center text-3xl lg:text-6xl font-family-secondary-extra-bold"
+              className="text-white text-center text-3xl lg:text-6xl font-family-secondary-extra-bold focus:outline-none focus:ring-2 focus:ring-white"
               href="/productions"
+              aria-label="Navigate to Productions page"
             >
               PRODUZIONI
             </a>
             <a
-              className="text-white text-3xl lg:text-6xl font-family-secondary-extra-light self-end"
+              className="text-white text-3xl lg:text-6xl font-family-secondary-extra-light self-end focus:outline-none focus:ring-2 focus:ring-white"
               href="/web-dev"
+              aria-label="Navigate to Web Development page"
             >
               WEB DEV
             </a>
