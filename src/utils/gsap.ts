@@ -17,7 +17,7 @@ export const slideUpFadeIn = (target: string): void =>
  * fade in effect
  * @param target The target HTML element (should be an ID in most cases)
  */
-export const opacityFadeIn = (target: string) => {
+export const opacityFadeIn = (target: string): void => {
   Gsap.set(target, {
     opacity: 0,
   });
