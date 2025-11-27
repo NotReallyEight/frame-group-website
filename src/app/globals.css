@@ -46,6 +46,16 @@
   @apply font-semibold;
 }
 
+@utility font-family-secondary-extra-bold {
+  font-family: var(--font-montserrat);
+  @apply font-extrabold;
+}
+
+@utility font-family-secondary-extra-light {
+  font-family: var(--font-montserrat);
+  @apply font-extralight;
+}
+
 @utility font-family-regular {
   font-family: var(--font-manrope);
   @apply font-normal;
@@ -96,6 +106,10 @@
 
 @utility link-hover-scale {
   @apply before:border-t-gold after:border-t-gold before:relative before:block before:h-px before:w-0 before:border-t-2 before:duration-150 after:relative after:ml-auto after:block after:h-px after:w-0 after:border-t-2 after:duration-150 hover:before:w-full hover:after:w-full;
+}
+
+@utility hover-underline {
+  @apply after:block after:scale-x-0 after:border-b-2 after:border-b-white after:duration-200 after:content-[''] hover:after:scale-x-100;
 }
 
 @utility typewriter {
