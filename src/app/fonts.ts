@@ -1,10 +1,19 @@
 import {
+  IBM_Plex_Mono,
   Manrope,
   Montserrat,
   Playfair_Display,
   Roboto_Condensed,
   Roboto_Slab,
 } from "next/font/google";
+
+export const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["200", "300", "400"],
+  style: ["italic", "normal"],
+  variable: "--font-ibm-plex-mono",
+});
 
 export const manrope = Manrope({
   subsets: ["latin"],
