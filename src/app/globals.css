@@ -41,6 +41,12 @@
   @apply font-bold;
 }
 
+@utility font-family-header-digital {
+  /* Fonts */
+  font-family: var(--font-ibm-plex-mono);
+  @apply text-4xl lg:text-9xl;
+}
+
 @utility font-family-secondary {
   font-family: var(--font-montserrat);
   @apply font-semibold;
@@ -61,9 +67,27 @@
   @apply font-normal;
 }
 
+@utility font-family-regular-digital {
+  /* Fonts */
+  font-family: var(--font-ibm-plex-mono);
+  @apply text-sm font-light lg:text-xl lg:font-normal;
+}
+
+@utility font-family-regular-italic-digital {
+  /* Fonts */
+  font-family: var(--font-ibm-plex-mono);
+  @apply text-xs font-light italic lg:text-sm;
+}
+
 @utility font-family-regular-extra-light {
   font-family: var(--font-manrope);
   @apply font-extralight;
+}
+
+@utility font-family-secondary-digital {
+  /* Fonts */
+  font-family: var(--font-ibm-plex-mono);
+  @apply text-2xl font-extralight lg:text-4xl;
 }
 
 @utility font-family-italic {
