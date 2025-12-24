@@ -21,6 +21,7 @@ export default function Home() {
   const preloaderLogoVideoRef = useRef<HTMLVideoElement>(null);
   const typewriterRef = useRef<HTMLDivElement>(null);
   const [hasVisited, setHasVisited] = useState<boolean | null>(null);
+  const [currentTime, setCurrentTime] = useState<Date | null>();
 
   const refresh = isPageRefresh();
 
@@ -45,6 +46,21 @@ export default function Home() {
     const preloaderFinishTimeout = setTimeout(() => {
       setLoading(false);
     }, PRELOADER_TOTAL_DURATION);
+
+    const scheduleNextTimeTick = () => {
+      setCurrentTime(new Date());
+
+      const currentDate = new Date();
+      const msUntilNextMinute =
+        (60 - currentDate.getSeconds()) * 1000 - currentDate.getMilliseconds();
+
+      setTimeout(() => {
+        setCurrentTime(new Date());
+        scheduleNextTimeTick();
+      }, msUntilNextMinute);
+    };
+
+    void scheduleNextTimeTick();
 
     return () => {
       clearTimeout(firstPreloaderIndexTimeout);
@@ -97,7 +113,7 @@ export default function Home() {
             <div className="flex flex-row items-center gap-4">
               <div
                 ref={typewriterRef}
-                className="font-family-regular-extra-light typewriter inline text-lg text-white after:ml-1 after:border-r-2 after:border-r-white"
+                className="font-family-regular-extra-light typewriter inline text-lg lg:text-xl text-white after:ml-1 after:border-r-2 after:border-r-white"
               />
               <div
                 className={`${threeDotsAnimation ? "opacity-100" : "opacity-0"} dots font-family-regular-extra-light flex flex-row gap-2 text-lg duration-0 *:inline-block *:text-white *:opacity-0`}
@@ -129,33 +145,61 @@ export default function Home() {
       )}
 
       {!loading && (
-        <div className="h-dvh w-dvw flex flex-col items-center justify-center">
+        <div className="grid grid-cols-[2rem_1fr] grid-rows-[auto_1fr] text-white h-dvh">
+          <div className="mx-4 w-px bg-white/20 h-full" />
+          {/* Container #1 */}
+          <div className="flex flex-col lg:flex-row relative justify-between lg:p-8">
+            <div className="flex flex-col h-fit mt-8 mb-12 lg:mb-0">
+              <div className="font-family-header-digital leading-tight tracking-wide">
+                I NOSTRI
+                <br />
+                SERVIZI
+              </div>
+            </div>
+            {/* Easter Eggs */}
+            <div className="flex flex-col h-full justify-between lg:p-8">
+              {/* FPS counter */}
+              <div className="lg:flex flex-row items-center gap-2 lg:gap-4 hidden">
+                {/* Circle */}
+                <div className="bg-red-600/80 w-3.5 h-3.5 rounded-full motion-safe:animate-pulse" />
+                <div className="text-white/80 justify-center font-family-regular-italic-digital">
+                  FPS 24.00
+                </div>
+              </div>
+              <div className="flex flex-col gap-1 mb-12 lg:mb-0 relative lg:text-right">
+                <div className="justify-center text-white/50 font-family-regular-digital tracking-wide">
+                  TIME ZONE
+                </div>
+                <div className="font-family-regular-digital">
+                  ROME
+                  <br />
+                  {currentTime?.getHours()}
+                  <span className="animate-[typing_1s_steps(1)_infinite]">
+                    :
+                  </span>
+                  {currentTime?.getMinutes()}
+                </div>
+              </div>
+              <div className="absolute w-dvw h-px -left-8 bottom-0 bg-white/20" />
+            </div>
+          </div>
+
+          <div className="mx-4 w-px bg-white/20" />
+          {/* Picker Container */}
           <div
-            id="picker-container"
-            className="flex flex-col w-4/5 lg:w-1/3 items-center justify-center gap-8
-                       *:hover-underline *:hover:scale-110 *:duration-200"
+            className="grid grid-cols-2 justify-center items-center h-full font-family-secondary-digital
+                       *:flex *:items-center *:justify-center
+                       [&_span]:-translate-x-1"
           >
-            <a
-              className="text-white text-3xl lg:text-6xl font-family-secondary-extra-light self-start focus:outline-none focus:ring-2 focus:ring-white"
-              href="/events"
-              aria-label="Navigate to Events page"
-            >
-              EVENTI
-            </a>
-            <a
-              className="text-white text-center text-3xl lg:text-6xl font-family-secondary-extra-bold focus:outline-none focus:ring-2 focus:ring-white"
-              href="/productions"
-              aria-label="Navigate to Productions page"
-            >
-              PRODUZIONI
-            </a>
-            <a
-              className="text-white text-3xl lg:text-6xl font-family-secondary-extra-light self-end focus:outline-none focus:ring-2 focus:ring-white"
-              href="/web-dev"
-              aria-label="Navigate to Web Development page"
-            >
-              WEB DEV
-            </a>
+            <div className="h-full border-r border-r-white/20">
+              <span>EVENTI</span>
+            </div>
+            <div>PRODUZIONI</div>
+            <div className="absolute w-dvw h-px left-0 bg-white/20" />
+            <div className="h-full border-r border-r-white/20">
+              <span>WEB DEV</span>
+            </div>
+            <div>RENTAL</div>
           </div>
         </div>
       )}
