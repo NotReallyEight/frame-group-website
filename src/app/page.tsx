@@ -23,10 +23,13 @@ export default function Home() {
   const typewriterRef = useRef<HTMLDivElement>(null);
   const [hasVisited, setHasVisited] = useState<boolean | null>(null);
   const [currentTime, setCurrentTime] = useState<Date | null>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const refresh = isPageRefresh();
 
   useEffect(() => {
+    let isMounted = true;
+
     if (hasVisited === null) {
       Promise.resolve().then(() =>
         setHasVisited(sessionStorage.getItem("has_visited_home") === "true")
@@ -35,13 +38,15 @@ export default function Home() {
     }
 
     const scheduleNextTimeTick = () => {
+      if (!isMounted) return;
+
       setCurrentTime(new Date());
 
       const currentDate = new Date();
       const msUntilNextMinute =
         (60 - currentDate.getSeconds()) * 1000 - currentDate.getMilliseconds();
 
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         setCurrentTime(new Date());
         scheduleNextTimeTick();
       }, msUntilNextMinute);
@@ -64,6 +69,13 @@ export default function Home() {
     }, PRELOADER_TOTAL_DURATION);
 
     return () => {
+      isMounted = false;
+
+      if (timeoutRef.current !== null) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+
       clearTimeout(firstPreloaderIndexTimeout);
       clearTimeout(preloaderFinishTimeout);
     };
@@ -146,7 +158,10 @@ export default function Home() {
       )}
 
       {!loading && (
-        <div className="grid grid-cols-[2rem_1fr] grid-rows-[auto_1fr] text-white h-dvh">
+        <div
+          className="grid grid-cols-[2rem_1fr] grid-rows-[auto_1fr] text-white h-dvh"
+          id="picker-container"
+        >
           <div className="mx-4 w-px bg-white/20 h-full" />
           {/* Container #1 */}
           <div className="flex flex-col lg:flex-row relative justify-between lg:p-8">
@@ -174,11 +189,13 @@ export default function Home() {
                 <div className="font-family-regular-digital">
                   ROME
                   <br />
-                  {currentTime?.getHours()}
+                  {currentTime &&
+                    String(currentTime.getHours()).padStart(2, "0")}
                   <span className="animate-[typing_1s_steps(1)_infinite]">
                     :
                   </span>
-                  {currentTime?.getMinutes()}
+                  {currentTime &&
+                    String(currentTime.getMinutes()).padStart(2, "0")}
                 </div>
               </div>
               <div className="absolute w-dvw h-px -left-8 bottom-0 bg-white/20" />
@@ -186,13 +203,14 @@ export default function Home() {
           </div>
 
           <div className="mx-4 w-px bg-white/20" />
-          {/* Picker Container */}
+
           <div
             className="grid grid-cols-2 justify-center items-center h-full font-family-secondary-digital
                        *:flex *:items-center *:justify-center
                        [&_span]:-translate-x-1
                        [&_a]:h-full [&_a]:duration-200 [&_a]:relative
-                       [&_a]:hover:[&_img]:opacity-20
+                       [&_a]:hover:[&_img]:opacity-20 [&_a]:focus:outline-1
+                       [&_a]:focus:outline-white [&_a]:focus:[&_img]:opacity-20
                        [&_a_img]:duration-200 [&_a_img]:opacity-0 [&_a_img]:absolute
                        [&_a_img]:top-0 [&_a_img]:left-0 [&_a_img]:-z-10"
           >
@@ -210,7 +228,7 @@ export default function Home() {
                 src="/assets/main-screen-picker/film-clapper-demo.webp"
               />
             </a>
-            <div className="absolute w-dvw h-px left-0 bg-white/20" />
+            <div className="absolute w-full h-px left-0 bg-white/20" />
             <a href="/web-dev" className="border-r border-r-white/20">
               <span>WEB DEV</span>
               <PickerLinkBackground
