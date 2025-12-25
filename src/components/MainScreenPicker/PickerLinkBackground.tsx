@@ -6,5 +6,5 @@ type Props = {
 };
 
 export const PickerLinkBackground = ({ alt, src }: Props) => (
-  <Image alt={alt} src={src} fill objectFit="cover" />
+  <Image alt={alt} src={src} fill className="object-cover" />
 );
