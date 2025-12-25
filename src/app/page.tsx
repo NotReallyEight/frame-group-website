@@ -8,6 +8,7 @@ import { useGSAP } from "@gsap/react";
 import { TextPlugin } from "gsap/TextPlugin";
 import { isPageRefresh } from "@/utils/preloader";
 import { opacityFadeIn } from "@/utils/gsap";
+import { PickerLinkBackground } from "@/components/MainScreenPicker/PickerLinkBackground";
 
 const PRELOADER_FIRST_TRANSITION_DELAY = 7_500;
 const PRELOADER_TOTAL_DURATION = 11_500;
@@ -33,20 +34,6 @@ export default function Home() {
       return;
     }
 
-    if (hasVisited && !refresh) {
-      Promise.resolve().then(() => setLoading(false));
-      return;
-    }
-
-    const firstPreloaderIndexTimeout = setTimeout(() => {
-      sessionStorage.setItem("has_visited_home", "true");
-      setLoadingIndex(1);
-      void preloaderLogoVideoRef.current?.play();
-    }, PRELOADER_FIRST_TRANSITION_DELAY);
-    const preloaderFinishTimeout = setTimeout(() => {
-      setLoading(false);
-    }, PRELOADER_TOTAL_DURATION);
-
     const scheduleNextTimeTick = () => {
       setCurrentTime(new Date());
 
@@ -61,6 +48,20 @@ export default function Home() {
     };
 
     void scheduleNextTimeTick();
+
+    if (hasVisited && !refresh) {
+      Promise.resolve().then(() => setLoading(false));
+      return;
+    }
+
+    const firstPreloaderIndexTimeout = setTimeout(() => {
+      sessionStorage.setItem("has_visited_home", "true");
+      setLoadingIndex(1);
+      void preloaderLogoVideoRef.current?.play();
+    }, PRELOADER_FIRST_TRANSITION_DELAY);
+    const preloaderFinishTimeout = setTimeout(() => {
+      setLoading(false);
+    }, PRELOADER_TOTAL_DURATION);
 
     return () => {
       clearTimeout(firstPreloaderIndexTimeout);
@@ -189,17 +190,41 @@ export default function Home() {
           <div
             className="grid grid-cols-2 justify-center items-center h-full font-family-secondary-digital
                        *:flex *:items-center *:justify-center
-                       [&_span]:-translate-x-1"
+                       [&_span]:-translate-x-1
+                       [&_a]:h-full [&_a]:duration-200 [&_a]:relative
+                       [&_a]:hover:[&_img]:opacity-20
+                       [&_a_img]:duration-200 [&_a_img]:opacity-0 [&_a_img]:absolute
+                       [&_a_img]:top-0 [&_a_img]:left-0 [&_a_img]:-z-10"
           >
-            <div className="h-full border-r border-r-white/20">
+            <a href="/events" className="border-r border-r-white/20">
               <span>EVENTI</span>
-            </div>
-            <div>PRODUZIONI</div>
+              <PickerLinkBackground
+                alt="Foto di un evento"
+                src="/assets/main-screen-picker/events-demo.webp"
+              />
+            </a>
+            <a href="/productions">
+              <span>PRODUZIONI</span>
+              <PickerLinkBackground
+                alt="Foto di un ciak"
+                src="/assets/main-screen-picker/film-clapper-demo.webp"
+              />
+            </a>
             <div className="absolute w-dvw h-px left-0 bg-white/20" />
-            <div className="h-full border-r border-r-white/20">
+            <a href="/web-dev" className="border-r border-r-white/20">
               <span>WEB DEV</span>
-            </div>
-            <div>RENTAL</div>
+              <PickerLinkBackground
+                alt="Foto di un computer con del codice"
+                src="/assets/main-screen-picker/web-dev-demo.webp"
+              />
+            </a>
+            <a href="/rental">
+              <span>RENTAL</span>
+              <PickerLinkBackground
+                alt="Foto di obiettivi"
+                src="/assets/main-screen-picker/rental-demo.webp"
+              />
+            </a>
           </div>
         </div>
       )}
