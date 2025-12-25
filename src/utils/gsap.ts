@@ -4,8 +4,8 @@ import Gsap from "gsap";
  * Animates an element so that it slides up while fading in
  * @param target - The target HTML element (should be an ID in most cases)
  */
-export const slideUpFadeIn = (target: string): void =>
-  void Gsap.from(target, {
+export const slideUpFadeIn = (target: string) =>
+  Gsap.from(target, {
     opacity: 0,
     y: window.innerHeight,
     duration: 1,
