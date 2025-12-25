@@ -1,5 +1,6 @@
 import "./globals.css";
 import {
+  ibmPlexMono,
   manrope,
   montserrat,
   playfairDisplay,
@@ -8,6 +9,7 @@ import {
 } from "./fonts";
 
 const fonts = [
+  ibmPlexMono.variable,
   manrope.variable,
   montserrat.variable,
   playfairDisplay.variable,

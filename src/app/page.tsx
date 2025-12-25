@@ -1,82 +1,14 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-import Image from "next/image";
-import { FaAnglesDown } from "react-icons/fa6";
-import images from "@/utils/images";
-import VerticalSeparatorLine from "@/components/VerticalSeparatorLine";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useGSAP } from "@gsap/react";
-import Footer from "@/components/Footer";
-import HorizontalSeparatorLine from "@/components/HorizontalSeparatorLine";
-import { slideUpFadeIn } from "@/utils/gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { isPageRefresh } from "@/utils/preloader";
-
-const ABOUT_US_PARAGRAPHS = [
-  {
-    title: (
-      <>
-        Un team <span className="font-family-italic">con voi</span>, per voi
-      </>
-    ),
-    description: (
-      <>
-        Siamo un team di ragazzi appassionati di fotografia e video,
-        specializzati nella cattura dei momenti più importanti della vita. Con
-        la nostra esperienza e la nostra attrezzatura all&apos;avanguardia,
-        siamo in grado di creare ricordi indelebili che dureranno per sempre. Ci
-        occupiamo di diverse tipologie di eventi, tra cui matrimoni, cerimonie e
-        compleanni, ma anche shooting fotografici per aziende, book fotografici,
-        reportage e tanto altro.
-      </>
-    ),
-  },
-  {
-    title: (
-      <>
-        Ogni scatto è un ricordo che vive per{" "}
-        <span className="font-family-italic">sempre</span>.
-      </>
-    ),
-    description: (
-      <>
-        Il nostro obiettivo è sempre quello di offrire un servizio
-        personalizzato, attento alle esigenze dei nostri clienti e in grado di
-        soddisfare ogni loro richiesta. Ogni progetto è una nuova sfida da
-        affrontare con entusiasmo e professionalità. Siamo sempre alla ricerca
-        di nuove idee e di soluzioni creative per rendere ogni scatto unico ed
-        emozionante.
-      </>
-    ),
-  },
-];
-
-const OUR_SERVICES_PARAGRAPHS = [
-  {
-    title: "Produzione social",
-    description:
-      "Offriamo servizi di gestione dei social e creazione di post, reels, spot e web serie, aiutando i nostri clienti a raggiungere il loro pubblico target e a distinguersi sulla piattaforma.",
-    image: images.socialProduction,
-  },
-  {
-    title: "Pubblicità",
-    description:
-      "Studiamo soluzioni personalizzate per promuovere i prodotti e i servizi dei nostri clienti, utilizzando una combinazione di creatività e strategia per massimizzare l'impatto delle loro campagne pubblicitarie.",
-    image: images.advertising,
-  },
-  {
-    title: "Eventi",
-    description:
-      "Che si tratti di un compleanno, un concerto o una cerimonia, siamo specializzati nella cattura dei momenti più belli e divertenti della festa, con servizi personalizzati e attrezzatura all'avanguardia.",
-    image: images.events,
-  },
-];
-
-const APERTURE_VALUES: number[] = [1.4, 2, 2.8, 4, 5.6, 8, 11, 16, 22];
+import { opacityFadeIn } from "@/utils/gsap";
+import { PickerLinkBackground } from "@/components/MainScreenPicker/PickerLinkBackground";
 
 const PRELOADER_FIRST_TRANSITION_DELAY = 7_500;
 const PRELOADER_TOTAL_DURATION = 11_500;
@@ -84,22 +16,44 @@ const PRELOADER_TOTAL_DURATION = 11_500;
 Gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother, TextPlugin);
 
 export default function Home() {
-  const containerRef = useRef<HTMLElement>(null);
-  const scrollSmootherWrapper = useRef<HTMLDivElement>(null);
-  const [fStop, setFStop] = useState<number>(APERTURE_VALUES[0]);
-  const horizontalGalleryContainerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingIndex, setLoadingIndex] = useState<number>(0);
   const [threeDotsAnimation, setThreeDotsAnimation] = useState<boolean>(false);
   const preloaderLogoVideoRef = useRef<HTMLVideoElement>(null);
   const typewriterRef = useRef<HTMLDivElement>(null);
+  const [hasVisited, setHasVisited] = useState<boolean | null>(null);
+  const [currentTime, setCurrentTime] = useState<Date | null>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const hasVisited =
-    typeof window !== "undefined" &&
-    sessionStorage.getItem("has_visited_home") === "true";
   const refresh = isPageRefresh();
 
   useEffect(() => {
+    let isMounted = true;
+
+    if (hasVisited === null) {
+      Promise.resolve().then(() =>
+        setHasVisited(sessionStorage.getItem("has_visited_home") === "true")
+      );
+      return;
+    }
+
+    const scheduleNextTimeTick = () => {
+      if (!isMounted) return;
+
+      setCurrentTime(new Date());
+
+      const currentDate = new Date();
+      const msUntilNextMinute =
+        (60 - currentDate.getSeconds()) * 1000 - currentDate.getMilliseconds();
+
+      timeoutRef.current = setTimeout(() => {
+        setCurrentTime(new Date());
+        scheduleNextTimeTick();
+      }, msUntilNextMinute);
+    };
+
+    void scheduleNextTimeTick();
+
     if (hasVisited && !refresh) {
       Promise.resolve().then(() => setLoading(false));
       return;
@@ -115,6 +69,13 @@ export default function Home() {
     }, PRELOADER_TOTAL_DURATION);
 
     return () => {
+      isMounted = false;
+
+      if (timeoutRef.current !== null) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+
       clearTimeout(firstPreloaderIndexTimeout);
       clearTimeout(preloaderFinishTimeout);
     };
@@ -134,56 +95,9 @@ export default function Home() {
         return;
       }
 
-      if (!hasVisited || refresh) slideUpFadeIn("#smooth-content");
-
-      ScrollSmoother.create({
-        wrapper: "#smooth-wrapper",
-        content: "#smooth-content",
-        smooth: 1,
-        effects: true,
-        smoothTouch: 0.05,
-      });
-
-      let latestFStop = fStop;
-      let ticking = false;
-
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1,
-        onUpdate: (self) => {
-          latestFStop =
-            APERTURE_VALUES[
-              Math.round(self.progress * (APERTURE_VALUES.length - 1))
-            ];
-
-          if (!ticking)
-            requestAnimationFrame(() => {
-              setFStop(latestFStop);
-              ticking = false;
-            });
-
-          ticking = true;
-        },
-      });
-
-      const galleryWidth =
-        horizontalGalleryContainerRef.current?.scrollWidth ?? 0;
-
-      Gsap.to(horizontalGalleryContainerRef.current, {
-        x: () => -(galleryWidth - window.innerWidth),
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#horizontal-gallery-wrapper",
-          scrub: 1,
-          start: "center center",
-          end: () => `+=${galleryWidth - window.innerHeight}`,
-        },
-      });
+      opacityFadeIn("#picker-container");
     },
     {
-      scope: scrollSmootherWrapper,
       dependencies: [loading],
     }
   );
@@ -212,7 +126,7 @@ export default function Home() {
             <div className="flex flex-row items-center gap-4">
               <div
                 ref={typewriterRef}
-                className="font-family-regular-extra-light typewriter inline text-lg text-white after:ml-1 after:border-r-2 after:border-r-white"
+                className="font-family-regular-extra-light typewriter inline text-lg lg:text-xl text-white after:ml-1 after:border-r-2 after:border-r-white"
               />
               <div
                 className={`${threeDotsAnimation ? "opacity-100" : "opacity-0"} dots font-family-regular-extra-light flex flex-row gap-2 text-lg duration-0 *:inline-block *:text-white *:opacity-0`}
@@ -244,261 +158,92 @@ export default function Home() {
       )}
 
       {!loading && (
-        <div id="smooth-wrapper" ref={scrollSmootherWrapper}>
-          {/* Navbar */}
-          <Navbar isHome />
-
-          {/* Animated f stop */}
-          <div className="font-family-condensed fixed right-8 bottom-8 z-10 text-base text-white lg:text-2xl">
-            f/{fStop.toFixed(1)}
+        <div
+          className="grid grid-cols-[2rem_1fr] grid-rows-[auto_1fr] text-white h-dvh"
+          id="picker-container"
+        >
+          <div className="mx-4 w-px bg-white/20 h-full" />
+          {/* Container #1 */}
+          <div className="flex flex-col lg:flex-row relative justify-between lg:p-8">
+            <div className="flex flex-col h-fit mt-8 mb-12 lg:mb-0">
+              <div className="font-family-header-digital leading-tight tracking-wide">
+                I NOSTRI
+                <br />
+                SERVIZI
+              </div>
+            </div>
+            {/* Easter Eggs */}
+            <div className="flex flex-col h-full justify-between lg:p-8">
+              {/* FPS counter */}
+              <div className="lg:flex flex-row items-center gap-2 lg:gap-4 hidden">
+                {/* Circle */}
+                <div className="bg-red-600/80 w-3.5 h-3.5 rounded-full motion-safe:animate-pulse" />
+                <div className="text-white/80 justify-center font-family-regular-italic-digital">
+                  FPS 24.00
+                </div>
+              </div>
+              <div className="flex flex-col gap-1 mb-12 lg:mb-0 relative lg:text-right">
+                <div className="justify-center text-white/50 font-family-regular-digital tracking-wide">
+                  TIME ZONE
+                </div>
+                <div className="font-family-regular-digital">
+                  ROME
+                  <br />
+                  {currentTime &&
+                    String(currentTime.getHours()).padStart(2, "0")}
+                  <span className="animate-[typing_1s_steps(1)_infinite]">
+                    :
+                  </span>
+                  {currentTime &&
+                    String(currentTime.getMinutes()).padStart(2, "0")}
+                </div>
+              </div>
+              <div className="absolute w-dvw h-px -left-8 bottom-0 bg-white/20" />
+            </div>
           </div>
-          <main
-            className="flex flex-col scroll-smooth"
-            id="smooth-content"
-            ref={containerRef}
+
+          <div className="mx-4 w-px bg-white/20" />
+
+          <div
+            className="grid grid-cols-2 justify-center items-center h-full font-family-secondary-digital
+                       *:flex *:items-center *:justify-center
+                       [&_span]:-translate-x-1
+                       [&_a]:h-full [&_a]:duration-200 [&_a]:relative
+                       [&_a]:hover:[&_img]:opacity-20 [&_a]:focus:outline-1
+                       [&_a]:focus:outline-white [&_a]:focus:[&_img]:opacity-20
+                       [&_a_img]:duration-200 [&_a_img]:opacity-0 [&_a_img]:absolute
+                       [&_a_img]:top-0 [&_a_img]:left-0 [&_a_img]:-z-10"
           >
-            {/* Hero Section */}
-            <section className="relative flex min-h-screen flex-col items-center justify-center">
-              {/* Background Image */}
-              <Image
-                src={images.header}
-                data-speed="0.5"
-                alt="Background"
-                fill
-                priority
-                className="-z-10 object-cover"
-                style={{ objectPosition: "center" }}
+            <a href="/events" className="border-r border-r-white/20">
+              <span>EVENTI</span>
+              <PickerLinkBackground
+                alt="Foto di un evento"
+                src="/assets/main-screen-picker/events-demo.webp"
               />
-              {/* Overlay for darkening */}
-              <div className="pointer-events-none absolute inset-0 z-0 bg-black/75" />
-
-              {/* Header */}
-              <div className="relative flex h-full flex-col items-center justify-center space-y-7">
-                <div className="flex flex-col text-center text-white">
-                  <div className="font-family-secondary text-3xl lg:text-6xl">
-                    FRAME PRODUCTION
-                  </div>
-                  <div className="font-family-secondary text-2xl lg:text-3xl">
-                    Salva i tuoi{" "}
-                    <span className="font-family-italic">momenti</span>.
-                  </div>
-                </div>
-
-                <div className="flex animate-bounce flex-row items-center justify-center space-x-3">
-                  <div className="font-family-italic text-shadow-gold text-base text-white lg:text-2xl">
-                    Conoscici meglio
-                  </div>
-                  <FaAnglesDown className="h-4 w-4 text-white lg:h-8 lg:w-8" />
-                </div>
-              </div>
-            </section>
-
-            {/* About Us Section */}
-            <section className="relative py-20">
-              {/* Background Image */}
-              <Image
-                src={images.aboutUs}
-                alt="Background"
-                fill
-                className="-z-10 object-cover"
-                style={{ objectPosition: "center" }}
-                loading="lazy"
+            </a>
+            <a href="/productions">
+              <span>PRODUZIONI</span>
+              <PickerLinkBackground
+                alt="Foto di un ciak"
+                src="/assets/main-screen-picker/film-clapper-demo.webp"
               />
-              {/* Overlay for darkening */}
-              <div className="pointer-events-none absolute inset-0 z-0 bg-black/75" />
-
-              <div className="relative flex flex-col items-center justify-center space-y-8 p-4 text-center text-3xl font-bold text-white lg:space-y-32">
-                {/* Title and description */}
-                <div className="flex flex-col items-center justify-center lg:space-y-4">
-                  <div className="font-family-secondary text-2xl lg:text-5xl">
-                    Chi siamo
-                  </div>
-                  <div className="font-family-regular text-xl lg:text-2xl">
-                    Un team <span className="font-family-italic">con voi</span>,
-                    per voi
-                  </div>
-                </div>
-
-                {/* Horizontal Separator */}
-                <HorizontalSeparatorLine color="gold" />
-
-                {/* Paragraphs */}
-                {ABOUT_US_PARAGRAPHS.map((paragraph, index) => (
-                  <div
-                    className="mx-4 flex flex-col space-y-4 lg:grid lg:w-2/3 lg:grid-cols-[1fr_auto_1fr]"
-                    key={`about-us-paragraph-${index}`}
-                  >
-                    <div
-                      className={`font-family-secondary self-center text-2xl lg:text-3xl ${index % 2 === 0 ? "lg:order-first" : "lg:order-last"}`}
-                    >
-                      {paragraph.title}
-                    </div>
-                    <div className="order-2 flex items-center justify-center px-8">
-                      <VerticalSeparatorLine color="gold" />
-                    </div>
-                    <div
-                      className={`font-family-regular self-center text-base font-light lg:text-xl ${index % 2 === 0 ? "lg:order-last" : "lg:order-first"}`}
-                    >
-                      {paragraph.description}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Our Services Section */}
-            <section className="relative bg-black py-20">
-              <div className="relative flex flex-col items-center justify-center space-y-8 p-4 text-center text-3xl font-bold text-white lg:space-y-32">
-                {/* Title */}
-                <div className="flex flex-col items-center justify-center lg:space-y-4">
-                  <div className="font-family-secondary text-2xl lg:text-5xl">
-                    Our Services
-                  </div>
-                </div>
-
-                {/* Horizontal Separator */}
-                <HorizontalSeparatorLine color="gold" />
-
-                {/* Services paragraphs */}
-                <div className="flex w-4/5 flex-col gap-14 lg:flex-row">
-                  {OUR_SERVICES_PARAGRAPHS.map((paragraph, index) => (
-                    <React.Fragment key={`paragraph-${index}`}>
-                      <div className="flex flex-1 flex-col items-center justify-center gap-2">
-                        <Image
-                          src={paragraph.image}
-                          alt={paragraph.title}
-                          width={944}
-                          height={622}
-                          className="h-auto w-full"
-                          loading="lazy"
-                        />
-                        <div className="font-family-secondary text-center text-2xl text-white lg:text-3xl">
-                          {paragraph.title}
-                        </div>
-                        <div className="font-family-regular text-base font-light text-white lg:text-xl">
-                          {paragraph.description}
-                        </div>
-                      </div>
-                      {/* Separator line */}
-                      {index !== OUR_SERVICES_PARAGRAPHS.length - 1 && (
-                        <>
-                          <HorizontalSeparatorLine color="gold" hideOnDesktop />
-                          <VerticalSeparatorLine color="gold" />
-                        </>
-                      )}
-                    </React.Fragment>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* Our Events Section */}
-            <section className="relative bg-black py-20">
-              <div className="relative flex flex-col items-center justify-center space-y-8 p-4 text-center text-3xl font-bold text-white lg:space-y-32">
-                {/* Title */}
-                <div className="flex flex-col items-center justify-center lg:space-y-4">
-                  <div className="font-family-secondary text-2xl lg:text-5xl">
-                    Our Events
-                  </div>
-                </div>
-
-                {/* Horizontal gallery scroll */}
-                <div
-                  id="horizontal-gallery-wrapper"
-                  className="h-[30vh] w-screen flex-row overflow-hidden lg:h-[50vh]"
-                >
-                  <div
-                    ref={horizontalGalleryContainerRef}
-                    className="flex h-full"
-                  >
-                    {images.event.map((eventImage, index) => (
-                      <Image
-                        key={`event-image-${index}`}
-                        width={944}
-                        height={622}
-                        src={eventImage}
-                        alt={`Event image ${index + 1}`}
-                        className="h-full w-auto shrink-0 object-cover"
-                        loading="lazy"
-                        sizes="(max-width: 768px) 80vw, (max-width: 1200px) 50vw, 944px"
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <a
-                  href={"/productions"}
-                  className="font-family-regular outline-dusty-blue p-4 text-center text-base font-light text-white outline-1 duration-200 outline-solid hover:outline-white lg:text-xl"
-                >
-                  Our portfolio
-                </a>
-              </div>
-            </section>
-
-            {/* Our Team Section */}
-            <section className="relative bg-black py-20">
-              <div className="relative flex flex-col items-center justify-center space-y-8 p-4 text-center text-3xl font-bold text-white lg:space-y-32">
-                {/* Title and description */}
-                <div className="flex flex-col items-center justify-center space-y-8 lg:space-y-28">
-                  {/* Members images */}
-                  <div className="w-screen items-center justify-center gap-14 lg:grid lg:w-auto lg:grid-cols-[1fr_auto_1fr]">
-                    <div className="font-family-secondary hidden text-8xl font-extrabold text-white lg:block">
-                      OUR
-                    </div>
-                    <div className="flex flex-row">
-                      <Image
-                        alt="Luca"
-                        src={images.members.luca}
-                        width={300}
-                        height={400}
-                        loading="lazy"
-                        sizes="(max-width: 768px) 150px, 300px"
-                      />
-                      <Image
-                        alt="Domenico"
-                        src={images.members.domenico}
-                        width={300}
-                        height={400}
-                        loading="lazy"
-                        sizes="(max-width: 768px) 150px, 300px"
-                      />
-                    </div>
-                    <div className="font-family-secondary hidden text-8xl font-extrabold text-white lg:block">
-                      TEAM
-                    </div>
-                  </div>
-
-                  {/* Slogan */}
-                  <div className="mx-4 mt-4 flex flex-col space-y-4 lg:grid lg:w-2/3 lg:grid-cols-[1fr_auto_1fr]">
-                    {/* Title */}
-                    <div className="font-family-secondary self-center text-2xl lg:text-3xl">
-                      La qualità che cercate, con l&apos;energia che vi{" "}
-                      <span className="font-family-italic">rappresenta</span>.
-                    </div>
-
-                    {/* Separator */}
-                    <div className="flex items-center justify-center px-8">
-                      <VerticalSeparatorLine color="gold" />
-                    </div>
-                    <HorizontalSeparatorLine color="gold" hideOnDesktop />
-
-                    {/* Description */}
-                    <div className="font-family-regular self-center text-base font-light lg:text-xl">
-                      Ragazzi appassionati di fotografia e video, pronti a
-                      catturare ogni momento con la massima qualità e
-                      creatività. Siamo qui per rendere indimenticabili i vostri
-                      momenti più importanti.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Footer */}
-            <section>
-              <Footer />
-            </section>
-          </main>
+            </a>
+            <div className="absolute w-full h-px left-0 bg-white/20" />
+            <a href="/web-dev" className="border-r border-r-white/20">
+              <span>WEB DEV</span>
+              <PickerLinkBackground
+                alt="Foto di un computer con del codice"
+                src="/assets/main-screen-picker/web-dev-demo.webp"
+              />
+            </a>
+            <a href="/rental">
+              <span>RENTAL</span>
+              <PickerLinkBackground
+                alt="Foto di obiettivi"
+                src="/assets/main-screen-picker/rental-demo.webp"
+              />
+            </a>
+          </div>
         </div>
       )}
     </>
