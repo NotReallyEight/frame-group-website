@@ -7,6 +7,7 @@ import {
   robotoCondensed,
   robotoSlab,
 } from "./fonts";
+import { Metadata } from "next";
 
 const fonts = [
   ibmPlexMono.variable,
@@ -16,6 +17,23 @@ const fonts = [
   robotoCondensed.variable,
   robotoSlab.variable,
 ].join(" ");
+
+// Next.js automatically updates metadata using this export.
+// eslint-disable-next-line react-refresh/only-export-components
+export const metadata: Metadata = {
+  icons: {
+    icon: [
+      {
+        url: "/icon.ico",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-dark.ico",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+  },
+};
 
 export default function RootLayout({
   children,
