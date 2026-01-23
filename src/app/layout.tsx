@@ -6,6 +6,7 @@ import {
   playfairDisplay,
   robotoCondensed,
   robotoSlab,
+  spaceGrotesk,
 } from "./fonts";
 import { Metadata } from "next";
 
@@ -16,6 +17,7 @@ const fonts = [
   playfairDisplay.variable,
   robotoCondensed.variable,
   robotoSlab.variable,
+  spaceGrotesk.variable,
 ].join(" ");
 
 // Next.js automatically updates metadata using this export.

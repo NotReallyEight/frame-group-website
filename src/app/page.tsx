@@ -169,7 +169,7 @@ export default function Home() {
               <div className="font-family-header-digital leading-tight tracking-wide">
                 I NOSTRI
                 <br />
-                SERVIZI
+                SERVIZI.
               </div>
             </div>
             {/* Easter Eggs */}
