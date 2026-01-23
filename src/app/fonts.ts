@@ -5,6 +5,7 @@ import {
   Playfair_Display,
   Roboto_Condensed,
   Roboto_Slab,
+  Space_Grotesk,
 } from "next/font/google";
 
 export const ibmPlexMono = IBM_Plex_Mono({
@@ -48,4 +49,11 @@ export const robotoSlab = Roboto_Slab({
   display: "swap",
   weight: "700",
   variable: "--font-roboto-slab",
+});
+
+export const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400"],
+  variable: "--font-space-grotesk",
 });

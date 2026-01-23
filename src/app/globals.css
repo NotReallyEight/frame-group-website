@@ -43,55 +43,55 @@
 
 @utility font-family-header-digital {
   /* Fonts */
-  font-family: var(--font-ibm-plex-mono);
+  font-family: var(--font-space-grotesk);
   @apply text-4xl lg:text-9xl;
 }
 
 @utility font-family-secondary {
-  font-family: var(--font-montserrat);
+  font-family: var(--font-space-grotesk);
   @apply font-semibold;
 }
 
 @utility font-family-secondary-extra-bold {
-  font-family: var(--font-montserrat);
+  font-family: var(--font-space-grotesk);
   @apply font-extrabold;
 }
 
 @utility font-family-secondary-extra-light {
-  font-family: var(--font-montserrat);
+  font-family: var(--font-space-grotesk);
   @apply font-extralight;
 }
 
 @utility font-family-regular {
-  font-family: var(--font-manrope);
+  font-family: var(--font-space-grotesk);
   @apply font-normal;
 }
 
 @utility font-family-regular-digital {
   /* Fonts */
-  font-family: var(--font-ibm-plex-mono);
+  font-family: var(--font-space-grotesk);
   @apply text-sm font-light lg:text-xl lg:font-normal;
 }
 
 @utility font-family-regular-italic-digital {
   /* Fonts */
-  font-family: var(--font-ibm-plex-mono);
+  font-family: var(--font-space-grotesk);
   @apply text-xs font-light italic lg:text-sm;
 }
 
 @utility font-family-regular-extra-light {
-  font-family: var(--font-manrope);
+  font-family: var(--font-space-grotesk);
   @apply font-extralight;
 }
 
 @utility font-family-secondary-digital {
   /* Fonts */
-  font-family: var(--font-ibm-plex-mono);
+  font-family: var(--font-space-grotesk);
   @apply text-2xl font-extralight lg:text-4xl;
 }
 
 @utility font-family-italic {
-  font-family: var(--font-playfair-display);
+  font-family: var(--font-space-grotesk);
   @apply font-normal italic;
 }
 
