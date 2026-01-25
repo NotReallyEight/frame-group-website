@@ -100,6 +100,9 @@ export default function Home() {
       {loading && (
         <div
           className={`absolute inset-0 flex h-dvh w-dvw items-center justify-center bg-black transition-opacity duration-700`}
+          role="status"
+          aria-live="polite"
+          aria-label="Caricamento pagina in corso"
         >
           <video
             ref={preloaderLogoVideoRef}
