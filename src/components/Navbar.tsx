@@ -1,13 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import Logo from "./Logo";
-import NavbarSections from "./NavbarSections";
 import { useGSAP } from "@gsap/react";
 import { slideUpFadeIn } from "@/utils/gsap";
 import { isPageRefresh } from "@/utils/preloader";
 
 type Props = {
+  fixed?: boolean;
   isHome?: boolean;
 };
 
@@ -16,60 +15,58 @@ const sections: {
   href: string;
 }[] = [
   {
-    name: "Home",
-    href: "/",
+    name: "Work",
+    href: "/works",
   },
   {
-    name: "Produzioni",
-    href: "/productions",
+    name: "Studio",
+    href: "/studio",
   },
   {
-    name: "Contatti",
+    name: "Contact",
     href: "/contacts",
   },
 ];
 
-const Navbar = ({ isHome }: Props) => {
-  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState<boolean>(false);
+const Navbar = ({ fixed, isHome }: Props) => {
   const hasVisited =
     typeof window !== "undefined" &&
     sessionStorage.getItem("has_visited_home") === "true";
   const refresh = isPageRefresh();
-
-  const handleBurgerMenuToggle = () => {
-    setIsBurgerMenuOpen(!isBurgerMenuOpen);
-  };
 
   useGSAP(() => {
     if (isHome && (!hasVisited || refresh)) slideUpFadeIn("#navbar");
   }, []);
 
   return (
-    <div
+    <header
       id="navbar"
-      className="fixed top-4 right-4 left-4 z-10 mx-0 items-center justify-center gap-4 space-y-4 lg:top-7 lg:right-0 lg:left-0 lg:m-0 lg:mx-auto lg:w-2/3"
+      className={`${fixed ? "fixed" : ""} items-center grid grid-cols-[auto_1fr] md:grid-cols-3 w-full`}
     >
-      <div className="bg-lighter-black flex h-fit flex-row items-center justify-between rounded-xl px-7 py-4">
-        <Logo />
-        <NavbarSections
-          sections={sections}
-          toggleBurgerMenu={handleBurgerMenuToggle}
-        />
-      </div>
-      <div
-        className={`font-family-secondary *:bg-grey ${isBurgerMenuOpen ? "navbar-dropdown-sections-open flex" : "hidden"} bg-lighter-black flex-col items-center justify-center space-y-4 rounded-xl p-4 text-center text-base text-white *:self-stretch *:rounded-xl *:p-4 lg:hidden`}
-      >
+      <Logo />
+
+      {/* Nav sections */}
+      <nav className="flex flex-row items-center justify-center gap-4 md:gap-12 font-family-nav-link text-text-secondary">
         {sections.map((section, index) => (
           <a
+            key={`nav-${index}`}
             href={section.href}
-            key={`navbar-dropdown-section-${index}`}
-            className="hover:bg-lighter-black duration-200"
+            className="hover:text-white duration-(--transition-duration)"
           >
             {section.name}
           </a>
         ))}
+      </nav>
+
+      {/* FPS counter */}
+      <div className="md:flex hidden flex-row items-center ml-auto mr-12 gap-4 font-family-mono">
+        {/* Circle */}
+        <div className="bg-red-600/80 w-3.5 h-3.5 rounded-full motion-safe:animate-pulse" />
+        <div className="text-text-secondary justify-center font-family-regular-italic-digital">
+          FPS 24.00
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 
