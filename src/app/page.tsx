@@ -16,7 +16,6 @@ Gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother, TextPlugin);
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
-  const [loadingIndex, setLoadingIndex] = useState<number>(0);
   const preloaderLogoVideoRef = useRef<HTMLVideoElement>(null);
   const [hasVisited, setHasVisited] = useState<boolean | null>(null);
   const [currentTime, setCurrentTime] = useState<Date | null>();
@@ -57,7 +56,6 @@ export default function Home() {
     }
 
     sessionStorage.setItem("has_visited_home", "true");
-    setLoadingIndex(1);
     void preloaderLogoVideoRef.current?.play();
 
     const preloaderFinishTimeout = setTimeout(() => {
@@ -95,7 +93,7 @@ export default function Home() {
 
       {loading && (
         <div
-          className={`absolute inset-0 flex h-dvh w-dvw items-center justify-center bg-black transition-opacity duration-700 ${loadingIndex === 1 ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-0 flex h-dvh w-dvw items-center justify-center bg-black transition-opacity duration-700`}
         >
           <video
             ref={preloaderLogoVideoRef}
