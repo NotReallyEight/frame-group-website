@@ -74,9 +74,15 @@ export default function Home() {
     };
   }, [hasVisited, refresh]);
 
-  useGSAP(() => opacityFadeIn("#picker-container"), {
-    dependencies: [loading],
-  });
+  useGSAP(
+    () => {
+      if (loading) return;
+      opacityFadeIn("#picker-container");
+    },
+    {
+      dependencies: [loading],
+    }
+  );
 
   return (
     <>
