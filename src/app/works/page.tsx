@@ -1,21 +1,20 @@
-"use client";
-
 import { PickerLinkBackground } from "@/components/MainScreenPicker/PickerLinkBackground";
 import Navbar from "@/components/Navbar";
+import type { Metadata } from "next";
+
+// Next.js automatically updates metadata using this export.
+// eslint-disable-next-line react-refresh/only-export-components
+export const metadata: Metadata = {
+  title: "I Nostri Servizi - Frame",
+  description:
+    "Produzioni creative, eventi, sviluppo web e noleggio attrezzatura professionale. Scopri tutti i nostri servizi e trova la soluzione giusta per il tuo progetto.",
+  keywords:
+    "produzioni video, produzioni creative, eventi, copertura eventi, sviluppo web, web development, siti web professionali, servizi digitali, noleggio attrezzatura, rental attrezzatura video, fotografia professionale, videomaking, soluzioni creative",
+};
 
 export default function Works() {
   return (
     <>
-      <title>I Nostri Servizi - Frame</title>
-      <meta
-        name="description"
-        content="Produzioni creative, eventi, sviluppo web e noleggio attrezzatura professionale. Scopri tutti i nostri servizi e trova la soluzione giusta per il tuo progetto."
-      />
-      <meta
-        name="keywords"
-        content="produzioni video, produzioni creative, eventi, copertura eventi, sviluppo web, web development, siti web professionali, servizi digitali, noleggio attrezzatura, rental attrezzatura video, fotografia professionale, videomaking, soluzioni creative"
-      />
-
       <div className="grid grid-cols-[2rem_1fr] grid-rows-[auto_1fr] text-white h-dvh p-0">
         <div className="ml-8 w-px bg-border h-full" />
         {/* Header */}
