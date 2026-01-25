@@ -62,7 +62,7 @@ const Navbar = ({ fixed, isHome }: Props) => {
       <div className="md:flex hidden flex-row items-center ml-auto mr-12 gap-4 font-family-mono">
         {/* Circle */}
         <div className="bg-red-600/80 w-3.5 h-3.5 rounded-full motion-safe:animate-pulse" />
-        <div className="text-text-secondary justify-center font-family-regular-italic-digital">
+        <div className="text-text-secondary justify-center font-family-mono">
           FPS 24.00
         </div>
       </div>
