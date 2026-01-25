@@ -70,8 +70,8 @@
 /* Nav Links */
 @utility font-family-nav-link {
   /* Fonts */
-  font-family: var(--font-space-grotesk);
-  @apply text-xs font-medium tracking-widest uppercase lg:text-sm;
+  font-family: var(--font-inter);
+  @apply text-xs font-normal tracking-widest uppercase lg:text-sm;
 }
 
 /* Body (large) */

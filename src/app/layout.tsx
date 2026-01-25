@@ -1,8 +1,12 @@
 import "./globals.css";
-import { ibmPlexMono, spaceGrotesk } from "./fonts";
+import { ibmPlexMono, inter, spaceGrotesk } from "./fonts";
 import { Metadata } from "next";
 
-const fonts = [ibmPlexMono.variable, spaceGrotesk.variable].join(" ");
+const fonts = [
+  ibmPlexMono.variable,
+  inter.variable,
+  spaceGrotesk.variable,
+].join(" ");
 
 // Next.js automatically updates metadata using this export.
 // eslint-disable-next-line react-refresh/only-export-components
