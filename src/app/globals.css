@@ -13,8 +13,19 @@
   --color-gold: #b28b4a;
   --color-white: #ffffff;
 
+  --color-primary: var(--color-black);
+  --color-secondary: #0f0f0f;
+  --color-text: var(--color-white);
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+  --color-accent: #ff0000;
+  --color-border: #27272a;
+
   --spacing-half-width: 50dvw;
   --spacing-half-height: 50dvh;
+
+  --transition-duration: 150ms;
+  --grid-fade-in-duration: 500ms;
 }
 
 /*
@@ -35,69 +46,53 @@
   }
 }
 
+/* Hero */
 @utility font-family-header {
   /* Fonts */
-  font-family: var(--font-roboto-slab);
-  @apply font-bold;
-}
-
-@utility font-family-header-digital {
-  /* Fonts */
   font-family: var(--font-space-grotesk);
-  @apply text-4xl lg:text-9xl;
+  @apply text-9xl font-bold tracking-tighter uppercase;
 }
 
+/* Section */
 @utility font-family-secondary {
-  font-family: var(--font-space-grotesk);
-  @apply font-semibold;
-}
-
-@utility font-family-secondary-extra-bold {
-  font-family: var(--font-space-grotesk);
-  @apply font-extrabold;
-}
-
-@utility font-family-secondary-extra-light {
-  font-family: var(--font-space-grotesk);
-  @apply font-extralight;
-}
-
-@utility font-family-regular {
-  font-family: var(--font-space-grotesk);
-  @apply font-normal;
-}
-
-@utility font-family-regular-digital {
   /* Fonts */
   font-family: var(--font-space-grotesk);
-  @apply text-sm font-light lg:text-xl lg:font-normal;
+  @apply text-6xl font-bold tracking-tight uppercase;
 }
 
-@utility font-family-regular-italic-digital {
+/* Grid Labels */
+@utility font-family-grid-label {
   /* Fonts */
   font-family: var(--font-space-grotesk);
-  @apply text-xs font-light italic lg:text-sm;
+  @apply text-2xl font-semibold tracking-tight uppercase lg:text-5xl;
 }
 
-@utility font-family-regular-extra-light {
-  font-family: var(--font-space-grotesk);
-  @apply font-extralight;
+/* Nav Links */
+@utility font-family-nav-link {
+  /* Fonts */
+  font-family: var(--font-inter);
+  @apply text-xs font-normal tracking-widest uppercase lg:text-sm;
 }
 
-@utility font-family-secondary-digital {
+/* Body (large) */
+@utility font-family-regular-lg {
   /* Fonts */
   font-family: var(--font-space-grotesk);
-  @apply text-2xl font-extralight lg:text-4xl;
+  @apply text-xl font-normal tracking-tight;
 }
 
-@utility font-family-italic {
+/* Body (small) */
+@utility font-family-regular-sm {
+  /* Fonts */
   font-family: var(--font-space-grotesk);
-  @apply font-normal italic;
+  @apply text-sm font-normal;
 }
 
-@utility font-family-condensed {
-  font-family: var(--font-roboto-condensed);
-  @apply font-normal;
+/* Metadata */
+@utility font-family-mono {
+  /* Fonts */
+  font-family: var(--font-ibm-plex-mono);
+  @apply text-sm font-normal tracking-widest;
 }
 
 @utility glassmorph {
@@ -126,10 +121,6 @@
 
 @utility fade-out {
   animation: fade-out 0.5s forwards;
-}
-
-@utility link-hover-scale {
-  @apply before:border-t-gold after:border-t-gold before:relative before:block before:h-px before:w-0 before:border-t-2 before:duration-150 after:relative after:ml-auto after:block after:h-px after:w-0 after:border-t-2 after:duration-150 hover:before:w-full hover:after:w-full;
 }
 
 @utility hover-underline {
@@ -163,75 +154,13 @@
   }
 }
 
-@utility burger-menu {
-  @apply block h-1 w-8 bg-white duration-500;
-
-  &::before {
-    @apply absolute block h-1 w-8 bg-white duration-500 content-[''];
-  }
-
-  &::after {
-    @apply absolute block h-1 w-8 bg-white duration-500 content-[''];
-  }
-
-  &::before {
-    @apply -translate-y-2;
-  }
-
-  &::after {
-    @apply translate-y-2;
-  }
-
-  .burger-menu-open & {
-    @apply -translate-x-16 bg-white/0 duration-500;
-  }
-
-  .burger-menu-open &::before {
-    @apply translate-x-16 duration-500;
-  }
-
-  .burger-menu-open &::after {
-    @apply translate-x-16 duration-500;
-  }
-
-  .burger-menu-open &::before {
-    @apply translate-y-0 rotate-45;
-  }
-
-  .burger-menu-open &::after {
-    @apply translate-y-0 -rotate-45;
-  }
-}
-
-@utility burger-menu-open {
-  & .burger-menu {
-    @apply -translate-x-16 bg-white/0 duration-500;
-  }
-
-  & .burger-menu::before {
-    @apply translate-x-16 duration-500;
-  }
-
-  & .burger-menu::after {
-    @apply translate-x-16 duration-500;
-  }
-
-  & .burger-menu::before {
-    @apply translate-y-0 rotate-45;
-  }
-
-  & .burger-menu::after {
-    @apply translate-y-0 -rotate-45;
-  }
-}
-
 @utility navbar-dropdown-sections-open {
   animation: slide-down-fade-in 500ms ease-out forwards;
 }
 
 @layer utilities {
   body {
-    background-color: #000000;
+    @apply selection:bg-accent bg-black selection:text-white;
   }
 
   /* Keyframes */

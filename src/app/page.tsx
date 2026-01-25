@@ -10,17 +10,13 @@ import { isPageRefresh } from "@/utils/preloader";
 import { opacityFadeIn } from "@/utils/gsap";
 import { PickerLinkBackground } from "@/components/MainScreenPicker/PickerLinkBackground";
 
-const PRELOADER_FIRST_TRANSITION_DELAY = 7_500;
-const PRELOADER_TOTAL_DURATION = 11_500;
+const PRELOADER_TOTAL_DURATION = 4_000;
 
 Gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother, TextPlugin);
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
-  const [loadingIndex, setLoadingIndex] = useState<number>(0);
-  const [threeDotsAnimation, setThreeDotsAnimation] = useState<boolean>(false);
   const preloaderLogoVideoRef = useRef<HTMLVideoElement>(null);
-  const typewriterRef = useRef<HTMLDivElement>(null);
   const [hasVisited, setHasVisited] = useState<boolean | null>(null);
   const [currentTime, setCurrentTime] = useState<Date | null>();
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -59,11 +55,9 @@ export default function Home() {
       return;
     }
 
-    const firstPreloaderIndexTimeout = setTimeout(() => {
-      sessionStorage.setItem("has_visited_home", "true");
-      setLoadingIndex(1);
-      void preloaderLogoVideoRef.current?.play();
-    }, PRELOADER_FIRST_TRANSITION_DELAY);
+    sessionStorage.setItem("has_visited_home", "true");
+    void preloaderLogoVideoRef.current?.play();
+
     const preloaderFinishTimeout = setTimeout(() => {
       setLoading(false);
     }, PRELOADER_TOTAL_DURATION);
@@ -76,25 +70,13 @@ export default function Home() {
         timeoutRef.current = null;
       }
 
-      clearTimeout(firstPreloaderIndexTimeout);
       clearTimeout(preloaderFinishTimeout);
     };
   }, [hasVisited, refresh]);
 
   useGSAP(
     () => {
-      if (loading) {
-        Gsap.to(typewriterRef.current, {
-          text: "Ogni grande storia nasce da un gruppo di menti che lavorano come una sola.",
-          ease: "none",
-          duration: (PRELOADER_FIRST_TRANSITION_DELAY - 3_000) / 1_000,
-          onComplete: () => {
-            setThreeDotsAnimation(true);
-          },
-        });
-        return;
-      }
-
+      if (loading) return;
       opacityFadeIn("#picker-container");
     },
     {
@@ -117,32 +99,10 @@ export default function Home() {
 
       {loading && (
         <div
-          className={`absolute inset-0 h-dvh w-dvw bg-black transition-opacity duration-700 ${loadingIndex === 0 ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-0 flex h-dvh w-dvw items-center justify-center bg-black transition-opacity duration-700`}
           role="status"
           aria-live="polite"
-          aria-label="Loading application"
-        >
-          <div className="absolute right-0 bottom-16 left-0 mx-auto w-[80dvw] lg:right-16 lg:left-16 lg:mx-0 lg:w-[35dvw]">
-            <div className="flex flex-row items-center gap-4">
-              <div
-                ref={typewriterRef}
-                className="font-family-regular-extra-light typewriter inline text-lg lg:text-xl text-white after:ml-1 after:border-r-2 after:border-r-white"
-              />
-              <div
-                className={`${threeDotsAnimation ? "opacity-100" : "opacity-0"} dots font-family-regular-extra-light flex flex-row gap-2 text-lg duration-0 *:inline-block *:text-white *:opacity-0`}
-              >
-                <div>.</div>
-                <div>.</div>
-                <div>.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {loading && (
-        <div
-          className={`absolute inset-0 flex h-dvh w-dvw items-center justify-center bg-black transition-opacity duration-700 ${loadingIndex === 1 ? "opacity-100" : "opacity-0"}`}
+          aria-label="Caricamento pagina in corso"
         >
           <video
             ref={preloaderLogoVideoRef}

@@ -1,22 +1,10 @@
 import "./globals.css";
-import {
-  ibmPlexMono,
-  manrope,
-  montserrat,
-  playfairDisplay,
-  robotoCondensed,
-  robotoSlab,
-  spaceGrotesk,
-} from "./fonts";
+import { ibmPlexMono, inter, spaceGrotesk } from "./fonts";
 import { Metadata } from "next";
 
 const fonts = [
   ibmPlexMono.variable,
-  manrope.variable,
-  montserrat.variable,
-  playfairDisplay.variable,
-  robotoCondensed.variable,
-  robotoSlab.variable,
+  inter.variable,
   spaceGrotesk.variable,
 ].join(" ");
 
