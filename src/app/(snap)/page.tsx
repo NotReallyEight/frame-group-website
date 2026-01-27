@@ -97,7 +97,7 @@ export default function Home() {
         <main className="" id="container">
           <Navbar fixed hasBorder />
           {/* Hero Section */}
-          <section className="text-white border-b-2 border-b-border panel snap-start">
+          <section className="relative text-white border-b-2 border-b-border panel snap-start">
             <div className="flex flex-col items-start justify-center h-dvh px-8 md:px-12 lg:px-[10dvw] gap-8 md:max-w-half-width">
               <h1 className="font-family-header *:block">
                 <span>Ogni</span>
