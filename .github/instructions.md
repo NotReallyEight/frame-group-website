@@ -8,3 +8,7 @@
   - Minor: increment the minor version (`x.MINOR.x`)
   - Major / Breaking change: increment the major version (`MAJOR.x.x`)
 - Suggestions should commit the updated version along with the relevant changes.
+
+## Unused dependencies
+
+When suggesting code, if in the `package.json` there are some installed packages that are unused, remove them.
