@@ -6,6 +6,7 @@ import tseslint from "typescript-eslint";
 import react from "eslint-plugin-react";
 import reactRefresh from "eslint-plugin-react-refresh";
 import nextVitals from "eslint-config-next/core-web-vitals";
+import eslintPluginPrettierRecommended from "eslint-config-prettier";
 
 export default defineConfig(
   nextVitals,
@@ -25,5 +26,6 @@ export default defineConfig(
     rules: {
       "import/no-unresolved": "off",
     },
-  }
+  },
+  eslintPluginPrettierRecommended
 );
