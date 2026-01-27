@@ -57,7 +57,7 @@
 @utility font-family-secondary {
   /* Fonts */
   font-family: var(--font-space-grotesk);
-  @apply text-6xl font-bold tracking-tight uppercase;
+  @apply text-4xl font-bold tracking-tight uppercase md:text-5xl lg:text-7xl;
 }
 
 /* Grid Labels */
@@ -86,6 +86,13 @@
   /* Fonts */
   font-family: var(--font-space-grotesk);
   @apply text-sm font-normal tracking-tight md:text-lg lg:text-xl;
+}
+
+/* Body (regular) */
+@utility font-family-regular-md {
+  /* Fonts */
+  font-family: var(--font-space-grotesk);
+  @apply text-text-secondary text-sm font-medium tracking-tight md:text-base;
 }
 
 /* Body (small) */
