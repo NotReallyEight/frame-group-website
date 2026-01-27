@@ -6,8 +6,15 @@ import { useGSAP } from "@gsap/react";
 import { isPageRefresh } from "@/utils/preloader";
 import { opacityFadeIn } from "@/utils/gsap";
 import Navbar from "@/components/Navbar";
+import { FiArrowUpRight } from "react-icons/fi";
 
 const PRELOADER_TOTAL_DURATION = 4_000;
+const PRODUCTIONS_CATEGORIES = [
+  "Documentari",
+  "Videoclip",
+  "Cinema",
+  "Commercial",
+];
 
 Gsap.registerPlugin(useGSAP);
 
@@ -121,26 +128,59 @@ export default function Home() {
 
           {/* Productions Section */}
           <section className="text-white panel snap-start">
-            <div className="flex flex-col items-start justify-center h-dvh px-8 md:px-12 lg:px-[10dvw] gap-8 md:max-w-half-width">
-              <h1 className="font-family-header *:block">
-                <span>Ogni</span>
-                <span>Grande</span>
-                <span>Storia.</span>
-              </h1>
-              <p className="w-full font-family-regular-lg text-text-secondary pl-4 border-l-2 border-l-white">
-                We are a multi-disciplinary creative studio crafting digital
-                experiences, visual narratives, and immersive events.
-              </p>
-              <button
-                className="bg-white text-primary p-4 font-family-button
-                         border-2 border-white hover:bg-primary
-                         hover:text-white duration-(--transition-duration)
-                         cursor-pointer"
-                type="submit"
-                onSubmit={() => {}}
-              >
-                Start Project
-              </button>
+            <div className="h-dvh flex flex-col items-center justify-center px-8 md:px-12 lg:px-[10dvw] space-y-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+                <div className="font-family-secondary">
+                  Cinematic Storytelling
+                </div>
+                <div className="md:w-[75%] font-family-regular-md md:mt-auto">
+                  We craft visual narratives that resonate. Whether it&apos;s a
+                  30-second spot or a feature-length documentary, our lens
+                  captures the essence of your story.
+                </div>
+
+                <div className="flex flex-col space-y-2 md:space-y-4">
+                  <div
+                    className="text-accent font-family-regular-md uppercase
+                                text-xs"
+                  >
+                    &#47;&#47; Services
+                  </div>
+                  <div>
+                    {PRODUCTIONS_CATEGORIES.map((category, index) => (
+                      <div
+                        key={`production-category-${index}`}
+                        className="flex flex-row items-center gap-2 md:gap-4 group cursor-pointer"
+                      >
+                        <div
+                          className="w-2 group-hover:w-4 md:w-4 group-hover:md:w-8 lg:w-8
+                                        group-hover:lg:w-12
+                                        duration-(--transition-duration) h-px
+                                        bg-border group-hover:bg-accent"
+                        />
+                        <div className="text-text-muted group-hover:text-white duration-(--transition-duration) font-family-grid-label text-2xl md:text-3xl lg:text-4xl">
+                          {category}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* Button */}
+                <button
+                  className="bg-primary border-2 border-white
+                             font-family-button flex flex-row items-center
+                             w-[75%] text-left p-4 md:p-8 md:text-xl lg:text-3xl cursor-pointer
+                             hover:bg-white hover:text-primary
+                             duration-(--transition-duration) group h-fit md:h-full"
+                  type="button"
+                >
+                  <div>What do you want to create?</div>
+                  <FiArrowUpRight
+                    size={50}
+                    className="group-hover:rotate-45 duration-(--transition-duration)"
+                  />
+                </button>
+              </div>
             </div>
           </section>
 
