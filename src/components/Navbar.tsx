@@ -8,6 +8,7 @@ import { isPageRefresh } from "@/utils/preloader";
 type Props = {
   fixed?: boolean;
   hasBorder?: boolean;
+  hasLeftPadding?: boolean;
   isHome?: boolean;
 };
 
@@ -29,7 +30,7 @@ const sections: {
   },
 ];
 
-const Navbar = ({ fixed, hasBorder, isHome }: Props) => {
+const Navbar = ({ fixed, hasBorder, hasLeftPadding, isHome }: Props) => {
   const hasVisited =
     typeof window !== "undefined" &&
     sessionStorage.getItem("has_visited_home") === "true";
@@ -42,7 +43,7 @@ const Navbar = ({ fixed, hasBorder, isHome }: Props) => {
   return (
     <header
       id="navbar"
-      className={`${fixed ? "fixed" : ""} items-center grid grid-cols-[auto_1fr] md:grid-cols-3 w-full pl-4 z-10 backdrop-blur-md ${hasBorder ? "border-b-2 border-b-border" : ""}`}
+      className={`${fixed ? "fixed" : ""} items-center grid grid-cols-[auto_1fr] md:grid-cols-3 w-full ${hasLeftPadding ? "pl-12" : "pl-4"} z-10 backdrop-blur-md ${hasBorder ? "border-b-2 border-b-border" : ""}`}
     >
       <Logo />
 
