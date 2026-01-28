@@ -122,7 +122,7 @@ export default function Home() {
 
           {/* Productions Section */}
           <section className="text-white panel snap-start border-b-2 border-b-border">
-            <div className="h-dvh flex flex-col items-center justify-center px-8 md:px-12 lg:px-[10dvw] space-y-12">
+            <div className="h-dvh flex flex-col items-center justify-center px-8 xl:px-[10dvw] space-y-12">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
                 <div className="font-family-secondary">
                   Cinematic Storytelling
@@ -179,11 +179,11 @@ export default function Home() {
           </section>
 
           {/* Generic Events Section */}
-          <section className="text-white panel snap-start">
+          <section className="text-white panel snap-start border-b-2 border-b-border">
             <div className="h-dvh flex flex-col items-center justify-center px-8 md:px-12 lg:px-[10dvw]">
               <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8 md:gap-12 grid-rows-[auto_auto]">
-                <div className="flex flex-col space-y-2 md:space-y-4 lg:space-y-8 justify-center h-fit">
-                  <div className="font-family-secondary">
+                <div className="flex flex-col space-y-2 md:space-y-4 lg:space-y-8 justify-center h-fit order-1">
+                  <div className="font-family-secondary ">
                     We don&apos;t just plan events. We create memories.
                   </div>
                   <div className="md:w-[75%] font-family-regular-lg text-text-secondary">
@@ -194,7 +194,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="relative group aspect-video md:aspect-auto lg:aspect-3/2 overflow-hidden">
+                <div className="relative group aspect-video md:aspect-auto lg:aspect-3/2 overflow-hidden order-3 md:order-2">
                   <Image
                     alt="18th Birthdays Image"
                     src={images.birthdays.header[1]}
@@ -203,13 +203,15 @@ export default function Home() {
                   <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/60 to-black transition-opacity duration-(--grid-fade-in-duration) group-hover:opacity-80" />
                 </div>
 
-                <Button
-                  text="Book your party"
-                  onSubmit={() => {}}
-                  primary={false}
-                />
+                <div className="order-2 md:order-3">
+                  <Button
+                    text="Book your party"
+                    onSubmit={() => {}}
+                    primary={false}
+                  />
+                </div>
 
-                <div className="flex flex-col h-fit border-l-2 border-l-accent px-4">
+                <div className="flex flex-col h-fit border-l-2 border-l-accent px-4 order-4">
                   <div className="font-family-mono uppercase">Trending now</div>
                   <div className="font-family-regular-lg text-lg md:text-xl lg:text-2xl font-bold">
                     Private
@@ -217,6 +219,50 @@ export default function Home() {
                     18th Birthday
                     <br />
                     Experiences
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 18th Birthdays Events Section */}
+          <section className="text-white panel snap-start">
+            <div className="h-dvh flex flex-col items-center justify-center px-8 md:px-12 lg:px-[10dvw]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 grid-rows-[auto_auto] items-center">
+                <div className="flex flex-col space-y-2 md:space-y-4 lg:space-y-8 justify-center h-fit md:order-2">
+                  <div className="font-family-secondary">
+                    We don&apos;t just plan events. We create memories.
+                  </div>
+                  <div className="md:w-[75%] font-family-regular-lg text-text-secondary">
+                    Specializing in exclusive private parties and unforgettable
+                    18th birthdays. From underground music sessions to high-end
+                    celebrations, we handle every detail so you can own the
+                    night.
+                  </div>
+                  <Button
+                    text="Book your party"
+                    onSubmit={() => {}}
+                    primary={false}
+                  />
+                </div>
+                <div className="relative group aspect-square md:aspect-auto lg:aspect-square overflow-hidden md:order-1">
+                  <Image
+                    alt="18th Birthdays Image"
+                    src={images.birthdays.header[1]}
+                    className="w-full aspect-square md:aspect-auto lg:aspect-square object-cover object-bottom group-hover:scale-105 duration-(--grid-fade-in-duration)"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-primary opacity-80 transition-opacity duration-(--grid-fade-in-duration) group-hover:opacity-50" />
+                  <div className="absolute bottom-8 left-8 flex flex-col h-fit border-l-2 border-l-accent px-4">
+                    <div className="font-family-mono uppercase">
+                      Trending now
+                    </div>
+                    <div className="font-family-regular-lg text-lg md:text-xl lg:text-2xl font-bold">
+                      Private
+                      <br />
+                      18th Birthday
+                      <br />
+                      Experiences
+                    </div>
                   </div>
                 </div>
               </div>
