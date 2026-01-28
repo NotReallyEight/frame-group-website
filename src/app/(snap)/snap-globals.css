@@ -3,6 +3,6 @@
 @layer utilities {
   html,
   body {
-    @apply selection:bg-accent h-screen snap-y snap-mandatory overflow-y-scroll scroll-smooth bg-black selection:text-white;
+    @apply selection:bg-accent h-screen overflow-y-scroll scroll-smooth bg-black selection:text-white md:snap-y md:snap-mandatory;
   }
 }
