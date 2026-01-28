@@ -194,7 +194,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="relative group aspect-3/2 overflow-hidden">
+                <div className="relative group aspect-video md:aspect-auto lg:aspect-3/2 overflow-hidden">
                   <Image
                     alt="18th Birthdays Image"
                     src={images.birthdays.header[1]}
@@ -211,7 +211,7 @@ export default function Home() {
 
                 <div className="flex flex-col h-fit border-l-2 border-l-accent px-4">
                   <div className="font-family-mono uppercase">Trending now</div>
-                  <div className="font-family-regular-lg text-2xl font-bold">
+                  <div className="font-family-regular-lg text-lg md:text-xl lg:text-2xl font-bold">
                     Private
                     <br />
                     18th Birthday
