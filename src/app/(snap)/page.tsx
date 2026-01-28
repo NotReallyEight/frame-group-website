@@ -7,6 +7,9 @@ import { isPageRefresh } from "@/utils/preloader";
 import { opacityFadeIn } from "@/utils/gsap";
 import Navbar from "@/components/Navbar";
 import { FiArrowUpRight } from "react-icons/fi";
+import Image from "next/image";
+import images from "@/utils/images";
+import Button from "@/components/Button";
 
 const PRELOADER_TOTAL_DURATION = 4_000;
 const PRODUCTIONS_CATEGORIES = [
@@ -95,7 +98,7 @@ export default function Home() {
 
       <Activity mode={loading ? "hidden" : "visible"}>
         <main className="" id="container">
-          <Navbar fixed hasBorder />
+          <Navbar fixed hasBorder hasLeftPadding />
           {/* Hero Section */}
           <section className="relative text-white border-b-2 border-b-border panel snap-start">
             <div className="flex flex-col items-start justify-center h-dvh px-8 md:px-12 lg:px-[10dvw] gap-8 md:max-w-half-width">
@@ -108,16 +111,7 @@ export default function Home() {
                 We are a multi-disciplinary creative studio crafting digital
                 experiences, visual narratives, and immersive events.
               </p>
-              <button
-                className="bg-white text-primary p-4 font-family-button
-                         border-2 border-white hover:bg-primary
-                         hover:text-white duration-(--transition-duration)
-                         cursor-pointer"
-                type="submit"
-                onSubmit={() => {}}
-              >
-                Start Project
-              </button>
+              <Button onSubmit={() => {}} text="Start Project" />
             </div>
             {/* Scroll down button */}
             <div className="absolute left-4 bottom-8 md:left-8 md:bottom-12 lg:left-12 font-family-mono uppercase animate-bounce flex flex-col text-text-secondary">
@@ -127,13 +121,13 @@ export default function Home() {
           </section>
 
           {/* Productions Section */}
-          <section className="text-white panel snap-start">
+          <section className="text-white panel snap-start border-b-2 border-b-border">
             <div className="h-dvh flex flex-col items-center justify-center px-8 md:px-12 lg:px-[10dvw] space-y-12">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
                 <div className="font-family-secondary">
                   Cinematic Storytelling
                 </div>
-                <div className="md:w-[75%] font-family-regular-md md:mt-auto">
+                <div className="md:w-[75%] font-family-regular-lg text-text-secondary md:mt-auto">
                   We craft visual narratives that resonate. Whether it&apos;s a
                   30-second spot or a feature-length documentary, our lens
                   captures the essence of your story.
@@ -184,28 +178,48 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Productions Section */}
+          {/* Generic Events Section */}
           <section className="text-white panel snap-start">
-            <div className="flex flex-col items-start justify-center h-dvh px-8 md:px-12 lg:px-[10dvw] gap-8 md:max-w-half-width">
-              <h1 className="font-family-header *:block">
-                <span>Ogni</span>
-                <span>Grande</span>
-                <span>Storia.</span>
-              </h1>
-              <p className="w-full font-family-regular-lg text-text-secondary pl-4 border-l-2 border-l-white">
-                We are a multi-disciplinary creative studio crafting digital
-                experiences, visual narratives, and immersive events.
-              </p>
-              <button
-                className="bg-white text-primary p-4 font-family-button
-                         border-2 border-white hover:bg-primary
-                         hover:text-white duration-(--transition-duration)
-                         cursor-pointer"
-                type="submit"
-                onSubmit={() => {}}
-              >
-                Start Project
-              </button>
+            <div className="h-dvh flex flex-col items-center justify-center px-8 md:px-12 lg:px-[10dvw]">
+              <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8 md:gap-12 grid-rows-[auto_auto]">
+                <div className="flex flex-col space-y-2 md:space-y-4 lg:space-y-8 justify-center h-fit">
+                  <div className="font-family-secondary">
+                    We don&apos;t just plan events. We create memories.
+                  </div>
+                  <div className="md:w-[75%] font-family-regular-lg text-text-secondary">
+                    Specializing in exclusive private parties and unforgettable
+                    18th birthdays. From underground music sessions to high-end
+                    celebrations, we handle every detail so you can own the
+                    night.
+                  </div>
+                </div>
+
+                <div className="relative group aspect-3/2 overflow-hidden">
+                  <Image
+                    alt="18th Birthdays Image"
+                    src={images.birthdays.header[1]}
+                    className="w-full aspect-square object-cover object-bottom group-hover:scale-105 duration-(--grid-fade-in-duration)"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/60 to-black transition-opacity duration-(--grid-fade-in-duration) group-hover:opacity-80" />
+                </div>
+
+                <Button
+                  text="Book your party"
+                  onSubmit={() => {}}
+                  primary={false}
+                />
+
+                <div className="flex flex-col h-fit border-l-2 border-l-accent px-4">
+                  <div className="font-family-mono uppercase">Trending now</div>
+                  <div className="font-family-regular-lg text-2xl font-bold">
+                    Private
+                    <br />
+                    18th Birthday
+                    <br />
+                    Experiences
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </main>
