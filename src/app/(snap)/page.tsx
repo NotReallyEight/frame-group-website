@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { isPageRefresh } from "@/utils/preloader";
 import { opacityFadeIn } from "@/utils/gsap";
 import Navbar from "@/components/Navbar";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight, FiDownload } from "react-icons/fi";
 import Image from "next/image";
 import images from "@/utils/images";
 import Button from "@/components/Button";
@@ -17,6 +17,11 @@ const PRODUCTIONS_CATEGORIES = [
   "Videoclip",
   "Cinema",
   "Commercial",
+];
+const WEB_DEVELOPMENT_CATEGORIES = [
+  "Creative Front-End",
+  "3D Web Experiences",
+  "E-Commerce Solutions",
 ];
 
 Gsap.registerPlugin(useGSAP);
@@ -135,7 +140,7 @@ export default function Home() {
 
                 <div className="flex flex-col space-y-2 md:space-y-4">
                   <div
-                    className="text-accent font-family-regular-md uppercase
+                    className="text-accent font-family-mono uppercase
                                 text-xs"
                   >
                     &#47;&#47; Services
@@ -226,7 +231,7 @@ export default function Home() {
           </section>
 
           {/* 18th Birthdays Events Section */}
-          <section className="text-white panel snap-start">
+          <section className="text-white panel snap-start border-b-2 border-b-border">
             <div className="h-dvh flex flex-col items-center justify-center px-8 md:px-12 lg:px-[10dvw]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 grid-rows-[auto_auto] items-center">
                 <div className="flex flex-col space-y-2 md:space-y-4 lg:space-y-8 justify-center h-fit md:order-2">
@@ -264,6 +269,69 @@ export default function Home() {
                       Experiences
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Web Dev and Rental Section */}
+          <section className="text-white panel snap-start">
+            <div className="h-dvh flex flex-col justify-center xl:grid xl:grid-cols-2 gap-8 xl:gap-12 items-center px-8 md:px-12 lg:px-[10dvw]">
+              <div className="flex flex-col space-y-8">
+                <div className="text-accent font-family-mono uppercase text-xs">
+                  &#47;&#47; Web Development
+                </div>
+                <div className="font-family-secondary">
+                  Digital
+                  <br />
+                  Architecture
+                </div>
+                <div className="font-family-regular-md xl:w-[75%]">
+                  We build blazing fast, accessible, and visually stunning
+                  websites using the latest stacks (React, Vue, WebGL). We turn
+                  designs into interactive reality.
+                </div>
+                <div>
+                  {WEB_DEVELOPMENT_CATEGORIES.map((category, index) => (
+                    <div
+                      key={`web-dev-category-${index}`}
+                      className="flex flex-row items-center space-x-4"
+                    >
+                      <div className="w-1 h-1 bg-accent"></div>
+                      <div className="font-family-regular-md">{category}</div>
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href="/web-dev"
+                  className="mt-auto underline font-family-mono uppercase hover:text-accent transition-(--transition-duration)"
+                >
+                  See Case Studies
+                </a>
+              </div>
+
+              <div className="flex flex-col p-8 border-2 border-border bg-secondary space-y-8 w-full xl:w-[85%] mx-auto">
+                <div className="text-accent font-family-mono uppercase text-xs">
+                  &#47;&#47; Rental
+                </div>
+                <div className="font-family-secondary">Gear Room</div>
+                <div className="font-family-regular-md">
+                  Need a RED Komodo for the weekend? Or a full Aputure lighting
+                  kit? Download our updated catalog or request a quick quote.
+                </div>
+                <div className="flex flex-col space-y-4">
+                  <Button
+                    fullWidth
+                    icon={<FiDownload size={12} />}
+                    onSubmit={() => {}}
+                    text="Download Catalog"
+                  />
+                  <Button
+                    fullWidth
+                    onSubmit={() => {}}
+                    text="Get Quote"
+                    primary={false}
+                  />
                 </div>
               </div>
             </div>
