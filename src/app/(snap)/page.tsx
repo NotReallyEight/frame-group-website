@@ -10,6 +10,7 @@ import { FiArrowUpRight, FiDownload } from "react-icons/fi";
 import Image from "next/image";
 import images from "@/utils/images";
 import Button from "@/components/Button";
+import Footer from "@/components/Footer";
 
 const PRELOADER_TOTAL_DURATION = 4_000;
 const PRODUCTIONS_CATEGORIES = [
@@ -120,8 +121,10 @@ export default function Home() {
             </div>
             {/* Scroll down button */}
             <div className="absolute left-4 bottom-8 md:left-8 md:bottom-12 lg:left-12 font-family-mono uppercase animate-bounce flex flex-col text-text-secondary">
-              <div className="rotate-90">Scroll</div>
-              <div className="h-px w-full rotate-90 bg-text-muted -translate-x-4 -translate-y-3" />
+              <div className="rotate-90 bg-clip-text text-transparent bg-linear-to-r from-white to-text-secondary">
+                Scroll
+              </div>
+              <div className="h-px w-full rotate-90 bg-linear-to-r from-white to-text-muted -translate-x-4 -translate-y-3" />
             </div>
           </section>
 
@@ -275,7 +278,7 @@ export default function Home() {
           </section>
 
           {/* Web Dev and Rental Section */}
-          <section className="text-white panel snap-start">
+          <section className="text-white panel snap-start border-b-2 border-b-border">
             <div className="h-fit md:h-dvh py-8 md:py-0 flex flex-col justify-center xl:grid xl:grid-cols-2 gap-8 xl:gap-12 items-center px-8 md:px-12 lg:px-[10dvw]">
               <div className="flex flex-col space-y-8">
                 <div className="text-accent font-family-mono uppercase text-xs">
@@ -336,6 +339,8 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+          <Footer />
         </main>
       </Activity>
     </>
