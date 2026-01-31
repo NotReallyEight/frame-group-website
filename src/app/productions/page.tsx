@@ -9,7 +9,6 @@ import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import images from "@/utils/images";
 import Image from "next/image";
-import Footer from "@/components/Footer";
 import { createSmoothWrapper } from "@/utils/gsap";
 
 const productionVideos: {
@@ -220,9 +219,6 @@ export default function Works() {
               ))}
             </div>
           </div>
-
-          {/* Footer */}
-          <Footer />
         </main>
       </div>
     </>
