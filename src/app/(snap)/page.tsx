@@ -103,7 +103,7 @@ export default function Home() {
       </Activity>
 
       <Activity mode={loading ? "hidden" : "visible"}>
-        <main className="" id="container">
+        <main id="container">
           <Navbar fixed hasBorder hasLeftPadding />
           {/* Hero Section */}
           <section className="relative text-white border-b-2 border-b-border panel snap-start">
