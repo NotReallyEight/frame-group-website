@@ -43,17 +43,33 @@ const Navbar = ({ fixed, hasBorder, hasLeftPadding, isHome }: Props) => {
   return (
     <header
       id="navbar"
-      className={`${fixed ? "fixed" : ""} items-center grid grid-cols-[auto_1fr] md:grid-cols-3 w-full ${hasLeftPadding ? "xl:pl-12" : "xl:pl-4"} z-10 backdrop-blur-md ${hasBorder ? "border-b-2 border-b-border" : ""}`}
+      className={`
+          ${fixed ? "fixed" : ""}
+          items-center
+          grid grid-cols-[auto_1fr] md:grid-cols-3 w-full
+          ${hasLeftPadding ? "xl:pl-12" : "xl:pl-4"}
+          z-10 backdrop-blur-md
+          ${hasBorder ? "border-b-2 border-b-border" : ""}
+        `}
     >
       <Logo />
 
       {/* Nav sections */}
-      <nav className="flex flex-row items-center justify-center gap-4 md:gap-12 font-family-nav-link text-text-secondary">
+      <nav
+        className={`
+            flex flex-row items-center justify-center
+            gap-4 md:gap-12
+            font-family-nav-link text-text-secondary
+          `}
+      >
         {sections.map((section, index) => (
           <a
             key={`nav-${index}`}
             href={section.href}
-            className="hover:text-white duration-(--transition-duration)"
+            className={`
+                hover:text-white
+                duration-(--transition-duration)
+              `}
           >
             {section.name}
           </a>

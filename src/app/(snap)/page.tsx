@@ -104,9 +104,9 @@ export default function Home() {
 
       <Activity mode={loading ? "hidden" : "visible"}>
         <main id="container">
-          <Navbar fixed hasBorder hasLeftPadding />
+          <Navbar fixed hasLeftPadding />
           {/* Hero Section */}
-          <section className="relative text-white border-b-2 border-b-border panel snap-start">
+          <section className="relative text-white panel snap-start">
             <div className="flex flex-col items-start justify-center h-dvh px-8 md:px-12 lg:px-[10dvw] gap-8 md:max-w-half-width">
               <h1 className="font-family-header *:block">
                 <span>Ogni</span>
@@ -129,7 +129,7 @@ export default function Home() {
           </section>
 
           {/* Productions Section */}
-          <section className="text-white panel snap-start border-b-2 border-b-border">
+          <section className="text-white panel snap-start">
             <div className="h-fit md:h-dvh py-8 md:py-0 flex flex-col items-center justify-center px-8 xl:px-[10dvw] space-y-12">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
                 <div className="font-family-secondary">
@@ -187,7 +187,7 @@ export default function Home() {
           </section>
 
           {/* Generic Events Section */}
-          <section className="text-white panel snap-start border-b-2 border-b-border">
+          <section className="text-white panel snap-start">
             <div className="h-fit md:h-dvh py-8 md:py-0 flex flex-col items-center justify-center px-8 md:px-12 lg:px-[10dvw]">
               <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8 md:gap-12 grid-rows-[auto_auto]">
                 <div className="flex flex-col space-y-2 md:space-y-4 lg:space-y-8 justify-center h-fit order-1">
@@ -234,7 +234,7 @@ export default function Home() {
           </section>
 
           {/* 18th Birthdays Events Section */}
-          <section className="text-white panel snap-start border-b-2 border-b-border">
+          <section className="text-white panel snap-start">
             <div className="h-fit md:h-dvh py-8 md:py-0 flex flex-col items-center justify-center px-8 md:px-12 lg:px-[10dvw]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 grid-rows-[auto_auto] items-center">
                 <div className="flex flex-col space-y-2 md:space-y-4 lg:space-y-8 justify-center h-fit md:order-2">
@@ -278,7 +278,7 @@ export default function Home() {
           </section>
 
           {/* Web Dev and Rental Section */}
-          <section className="text-white panel snap-start border-b-2 border-b-border">
+          <section className="text-white panel snap-start">
             <div className="h-fit md:h-dvh py-8 md:py-0 flex flex-col justify-center xl:grid xl:grid-cols-2 gap-8 xl:gap-12 items-center px-8 md:px-12 lg:px-[10dvw]">
               <div className="flex flex-col space-y-8">
                 <div className="text-accent font-family-mono uppercase text-xs">
