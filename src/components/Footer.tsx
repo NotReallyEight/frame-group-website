@@ -17,7 +17,15 @@ const SOCIAL_LINKS: {
 ];
 
 const Footer = () => (
-  <footer className="flex flex-col snap-end text-white px-8 md:px-12 lg:px-[10dvw] gap-8 xl:gap-12 mt-8 xl:mt-12">
+  <footer
+    className={`
+        flex flex-col snap-end
+        text-white
+        px-8 md:px-12 lg:px-[10dvw]
+        gap-8 xl:gap-12
+        mt-8 xl:mt-12
+      `}
+  >
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center justify-center">
       <div className="flex flex-col gap-4">
         <div className="font-family-header group">
@@ -36,8 +44,15 @@ const Footer = () => (
       <div className="flex flex-col items-start md:items-end gap-2 md:gap-4">
         <a
           href="mailto:antonio@framegroup.it"
-          className="font-family-regular-lg font-light text-2xl md:text-3xl xl:text-4xl hover:text-accent duration-(--transition-duration)
-                        after:border-b-2 after:border-b-white after:block after:scale-x-0 hover:after:scale-x-100 hover:after:border-b-accent after:origin-left after:duration-(--grid-fade-in-duration)"
+          className={`
+              font-family-regular-lg font-light
+              text-2xl md:text-3xl xl:text-4xl
+              hover:text-accent
+              duration-(--transition-duration)
+              after:border-b-2 after:border-b-white after:block after:scale-x-0
+              hover:after:scale-x-100 hover:after:border-b-accent
+              after:origin-left after:duration-(--grid-fade-in-duration)
+            `}
         >
           antonio@framegroup.it
         </a>
@@ -58,7 +73,14 @@ const Footer = () => (
           <a
             href={link.href}
             key={`social-link-${index}`}
-            className="font-family-regular-lg w-full xl:w-auto text-center xl:text-left text-text-muted hover:text-white duration-(--transition-duration) text-xs tracking-widest font-bold uppercase"
+            className={`
+                font-family-regular-lg
+                w-full xl:w-auto
+                text-center xl:text-left
+                text-text-muted hover:text-white
+                duration-(--transition-duration)
+                text-xs tracking-widest font-bold uppercase
+              `}
           >
             {link.label}
           </a>
