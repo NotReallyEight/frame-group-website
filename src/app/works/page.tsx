@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 export default function Works() {
   return (
     <>
-      <div className="grid grid-cols-[2rem_1fr] grid-rows-[auto_1fr] text-white h-dvh p-0">
-        <div className="ml-8 w-px bg-border h-full" />
+      <div className="grid grid-cols-1 md:grid-cols-[2rem_1fr] grid-rows-[auto_1fr] text-white h-dvh p-0">
+        <div className="hidden md:flex ml-8 w-px bg-border h-full" />
         {/* Header */}
         <Navbar />
-        <div className="ml-8 w-px bg-border h-full" />
+        <div className="hidden md:flex ml-8 w-px bg-border h-full" />
         {/* Grid */}
         <div>
           <div className="absolute w-full h-px left-0 bg-border" />
@@ -27,7 +27,7 @@ export default function Works() {
             className="grid grid-cols-2 justify-center items-center h-full
 											 font-family-grid-label *:flex *:justify-start *:items-end
 											 [&_span]:-translate-x-1 lg:[&_span]:mb-8 lg:[&_span]:ml-8
-											 [&_span]:mb-2 [&_span]:ml-2
+											 [&_span]:mb-4 [&_span]:ml-4
 											 [&_span]:duration-(--grid-fade-in-duration) [&_a]:h-full
 											 [&_a]:duration-(--grid-fade-in-duration) [&_a]:relative
 											 [&_a]:hover:[&_img]:opacity-20
