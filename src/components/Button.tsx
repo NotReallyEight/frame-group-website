@@ -5,7 +5,7 @@ type Props = {
   fullWidth?: boolean;
   icon?: React.ReactElement;
   text: string;
-  onSubmit: () => void;
+  onClick: () => void;
   primary?: boolean;
 };
 
@@ -14,7 +14,7 @@ const Button = ({
   fullWidth,
   icon,
   text,
-  onSubmit,
+  onClick,
   primary = true,
 }: Props) => (
   <button
@@ -26,7 +26,7 @@ const Button = ({
                          border-2 border-white duration-(--transition-duration)
                          cursor-pointer flex flex-row items-center justify-center space-x-4 ${className ?? ""}`}
     type="submit"
-    onSubmit={onSubmit}
+    onClick={onClick}
   >
     <Activity mode={icon !== undefined ? "visible" : "hidden"}>
       <div>{icon}</div>

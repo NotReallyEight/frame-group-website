@@ -117,7 +117,7 @@ export default function Home() {
                 We are a multi-disciplinary creative studio crafting digital
                 experiences, visual narratives, and immersive events.
               </p>
-              <Button onSubmit={() => {}} text="Start Project" />
+              <Button onClick={() => {}} text="Start Project" />
             </div>
             {/* Scroll down button */}
             <div className="absolute left-4 bottom-8 md:left-8 md:bottom-12 lg:left-12 font-family-mono uppercase animate-bounce flex flex-col text-text-secondary">
@@ -214,7 +214,7 @@ export default function Home() {
                 <div className="order-2 md:order-3">
                   <Button
                     text="Book your party"
-                    onSubmit={() => {}}
+                    onClick={() => {}}
                     primary={false}
                   />
                 </div>
@@ -249,7 +249,7 @@ export default function Home() {
                   </div>
                   <Button
                     text="Book your party"
-                    onSubmit={() => {}}
+                    onClick={() => {}}
                     primary={false}
                   />
                 </div>
@@ -326,12 +326,12 @@ export default function Home() {
                   <Button
                     fullWidth
                     icon={<FiDownload size={12} />}
-                    onSubmit={() => {}}
+                    onClick={() => {}}
                     text="Download Catalog"
                   />
                   <Button
                     fullWidth
-                    onSubmit={() => {}}
+                    onClick={() => {}}
                     text="Get Quote"
                     primary={false}
                   />
