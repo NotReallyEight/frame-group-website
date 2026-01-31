@@ -10,13 +10,13 @@ export const ibmPlexMono = IBM_Plex_Mono({
 export const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  weight: "400",
+  weight: ["400", "700"],
   variable: "--font-inter",
 });
 
 export const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400", "700"],
+  weight: ["300", "400", "500", "700"],
   variable: "--font-space-grotesk",
 });

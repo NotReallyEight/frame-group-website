@@ -1,6 +1,5 @@
 import Navbar from "@/components/Navbar";
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import { FaInstagram, FaTelegram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import Link from "next/link";
@@ -80,7 +79,6 @@ export default function Contacts() {
           title="Via Alfredo Bartolomei, Sant'Angelo dei Lombardi - Google Maps"
         />
       </div>
-      <Footer />
     </main>
   );
 }

@@ -9,7 +9,7 @@ import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import images from "@/utils/images";
 import Image from "next/image";
-import Footer from "@/components/Footer";
+import { createSmoothWrapper } from "@/utils/gsap";
 
 const productionVideos: {
   title: string;
@@ -48,12 +48,9 @@ export default function Works() {
         ) as unknown as HTMLElement
       ).offsetWidth;
 
-      ScrollSmoother.create({
+      createSmoothWrapper({
         content: "#smooth-content",
         wrapper: "#smooth-wrapper",
-        smooth: 1,
-        effects: true,
-        smoothTouch: 0.5,
       });
 
       Gsap.to(panels, {
@@ -222,9 +219,6 @@ export default function Works() {
               ))}
             </div>
           </div>
-
-          {/* Footer */}
-          <Footer />
         </main>
       </div>
     </>

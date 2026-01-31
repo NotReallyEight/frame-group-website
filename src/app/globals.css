@@ -50,14 +50,14 @@
 @utility font-family-header {
   /* Fonts */
   font-family: var(--font-space-grotesk);
-  @apply text-9xl font-bold tracking-tighter uppercase;
+  @apply text-7xl font-bold tracking-tighter uppercase md:text-8xl lg:text-9xl;
 }
 
 /* Section */
 @utility font-family-secondary {
   /* Fonts */
   font-family: var(--font-space-grotesk);
-  @apply text-6xl font-bold tracking-tight uppercase;
+  @apply text-4xl font-bold tracking-tight uppercase md:text-5xl lg:text-7xl;
 }
 
 /* Grid Labels */
@@ -74,17 +74,31 @@
   @apply text-xs font-normal tracking-widest uppercase lg:text-sm;
 }
 
+/* Buttons */
+@utility font-family-button {
+  /* Fonts */
+  font-family: var(--font-inter);
+  @apply text-sm font-bold tracking-widest uppercase;
+}
+
 /* Body (large) */
 @utility font-family-regular-lg {
   /* Fonts */
   font-family: var(--font-space-grotesk);
-  @apply text-xl font-normal tracking-tight;
+  @apply text-sm font-normal tracking-tight md:text-lg lg:text-xl;
+}
+
+/* Body (regular) */
+@utility font-family-regular-md {
+  /* Fonts */
+  font-family: var(--font-space-grotesk);
+  @apply text-text-secondary text-sm font-medium tracking-tight md:text-base;
 }
 
 /* Body (small) */
 @utility font-family-regular-sm {
   /* Fonts */
-  font-family: var(--font-space-grotesk);
+  font-family: var(--font-inter);
   @apply text-sm font-normal;
 }
 
