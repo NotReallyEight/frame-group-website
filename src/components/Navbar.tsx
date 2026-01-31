@@ -43,7 +43,7 @@ const Navbar = ({ fixed, hasBorder, hasLeftPadding, isHome }: Props) => {
   return (
     <header
       id="navbar"
-      className={`${fixed ? "fixed" : ""} items-center grid grid-cols-[auto_1fr] md:grid-cols-3 w-full ${hasLeftPadding ? "pl-12" : "pl-4"} z-10 backdrop-blur-md ${hasBorder ? "border-b-2 border-b-border" : ""}`}
+      className={`${fixed ? "fixed" : ""} items-center grid grid-cols-[auto_1fr] md:grid-cols-3 w-full ${hasLeftPadding ? "xl:pl-12" : "xl:pl-4"} z-10 backdrop-blur-md ${hasBorder ? "border-b-2 border-b-border" : ""}`}
     >
       <Logo />
 
