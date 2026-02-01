@@ -35,7 +35,12 @@ const Footer: React.FC<Props> = ({ fullScreen, usesDate = true }) => (
       `}
   >
     <div
-      className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center justify-center ${fullScreen ? "h-full" : ""}`}
+      className={`
+        grid grid-cols-1 md:grid-cols-2
+        gap-8 md:gap-12
+        items-center justify-center
+        ${fullScreen ? "h-full" : ""}
+      `}
     >
       <div className="flex flex-col gap-4">
         <div
@@ -98,7 +103,18 @@ const Footer: React.FC<Props> = ({ fullScreen, usesDate = true }) => (
           </a>
         ))}
       </div>
-      <div className="flex flex-row gap-8 *:w-full xl:*:w-auto xl:ml-auto font-family-regular-lg text-text-muted text-xs text-center tracking-widest font-bold uppercase mb-8 xl:mb-12 justify-between xl:justify-end w-full">
+      <div
+        className={`
+          flex flex-row
+          gap-8
+          *:w-full xl:*:w-auto xl:ml-auto w-full
+          font-family-regular-lg
+          text-text-muted text-xs
+          text-center tracking-widest font-bold uppercase
+          mb-8 xl:mb-12
+          justify-between xl:justify-end
+        `}
+      >
         <div>© Frame Group {usesDate ? new Date().getFullYear() : ""}</div>
         <div>P.IVA: 1234567890</div>
         <a
