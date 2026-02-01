@@ -109,6 +109,10 @@
   @apply text-sm font-normal tracking-widest;
 }
 
+@utility text-10xl {
+  @apply text-[10rem];
+}
+
 @utility glassmorph {
   background: rgba(86, 86, 86, 0.25);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
