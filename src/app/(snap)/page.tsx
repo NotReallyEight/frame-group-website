@@ -11,6 +11,7 @@ import Image from "next/image";
 import images from "@/utils/images";
 import Button from "@/components/Button";
 import Footer from "@/components/Footer";
+import Metadata from "@/components/Metadata";
 
 const PRELOADER_TOTAL_DURATION = 4_000;
 const PRODUCTIONS_CATEGORIES = [
@@ -71,15 +72,10 @@ export default function Home() {
 
   return (
     <>
-      {/* Meta tags */}
-      <title>Home - Frame</title>
-      <meta
-        name="description"
-        content="Con la nostra esperienza e la nostra attrezzatura all'avanguardia, siamo in grado di creare ricordi indelebili che dureranno per sempre."
-      />
-      <meta
-        name="keywords"
-        content="fotografia, fotografi frame, fotografi, frame"
+      <Metadata
+        title="Home - Frame"
+        description="Con la nostra esperienza e la nostra attrezzatura all'avanguardia, siamo in grado di creare ricordi indelebili che dureranno per sempre."
+        keywords="fotografia, fotografi frame, fotografi, frame"
       />
 
       <Activity mode={loading ? "visible" : "hidden"}>

@@ -1,3 +1,10 @@
+import React from "react";
+
+type Props = {
+  fullScreen?: boolean;
+  usesDate?: boolean;
+};
+
 const SOCIAL_LINKS: {
   label: string;
   href: string;
@@ -16,7 +23,7 @@ const SOCIAL_LINKS: {
   },
 ];
 
-const Footer = () => (
+const Footer: React.FC<Props> = ({ fullScreen, usesDate = true }) => (
   <footer
     className={`
         flex flex-col snap-end
@@ -24,11 +31,21 @@ const Footer = () => (
         px-8 md:px-12 lg:px-[10dvw]
         gap-8 xl:gap-12
         mt-8 xl:mt-12
+        ${fullScreen ? "h-full justify-between" : ""}
       `}
   >
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center justify-center">
+    <div
+      className={`
+        grid grid-cols-1 md:grid-cols-2
+        gap-8 md:gap-12
+        items-center justify-center
+        ${fullScreen ? "h-full" : ""}
+      `}
+    >
       <div className="flex flex-col gap-4">
-        <div className="font-family-header group">
+        <div
+          className={`font-family-header group ${fullScreen ? "text-8xl xl:text-9xl xl:text-10xl" : ""}`}
+        >
           Let&apos;s
           <br />
           <span className="group-hover:text-accent duration-(--transition-duration)">
@@ -86,8 +103,19 @@ const Footer = () => (
           </a>
         ))}
       </div>
-      <div className="flex flex-row gap-8 *:w-full xl:*:w-auto xl:ml-auto font-family-regular-lg text-text-muted text-xs text-center tracking-widest font-bold uppercase mb-8 xl:mb-12 justify-between xl:justify-end w-full">
-        <div>© Frame Group {new Date().getFullYear()}</div>
+      <div
+        className={`
+          flex flex-row
+          gap-8
+          *:w-full xl:*:w-auto xl:ml-auto w-full
+          font-family-regular-lg
+          text-text-muted text-xs
+          text-center tracking-widest font-bold uppercase
+          mb-8 xl:mb-12
+          justify-between xl:justify-end
+        `}
+      >
+        <div>© Frame Group {usesDate ? new Date().getFullYear() : ""}</div>
         <div>P.IVA: 1234567890</div>
         <a
           href="/privacy-policy"
