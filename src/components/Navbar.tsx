@@ -47,7 +47,7 @@ const Navbar = ({ fixed, hasBorder, hasLeftPadding, isHome }: Props) => {
           ${fixed ? "fixed" : ""}
           items-center
           grid grid-cols-[auto_1fr] md:grid-cols-3 w-full
-          ${hasLeftPadding ? "xl:pl-12" : "xl:pl-4"}
+          ${hasLeftPadding ? "md:pl-12" : "md:pl-4"}
           z-10 backdrop-blur-md
           ${hasBorder ? "border-b-2 border-b-border" : ""}
         `}
