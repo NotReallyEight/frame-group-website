@@ -2,14 +2,18 @@
 
 import Logo from "./Logo";
 import { useGSAP } from "@gsap/react";
-import { slideUpFadeIn } from "@/utils/gsap";
-import { isPageRefresh } from "@/utils/preloader";
+import { opacityFadeIn } from "@/utils/gsap";
+import { FiMenu, FiX } from "react-icons/fi";
+import { usePathname } from "next/navigation";
+import { Activity, type Dispatch, type FC, type SetStateAction } from "react";
+import Footer from "./Footer";
 
 type Props = {
   fixed?: boolean;
   hasBorder?: boolean;
   hasLeftPadding?: boolean;
-  isHome?: boolean;
+  isNavOpen?: boolean;
+  setIsNavOpen?: Dispatch<SetStateAction<boolean>>;
 };
 
 const sections: {
@@ -30,20 +34,29 @@ const sections: {
   },
 ];
 
-const Navbar = ({ fixed, hasBorder, hasLeftPadding, isHome }: Props) => {
-  const hasVisited =
-    typeof window !== "undefined" &&
-    sessionStorage.getItem("has_visited_home") === "true";
-  const refresh = isPageRefresh();
+const Navbar: FC<Props> = ({
+  fixed,
+  hasBorder,
+  hasLeftPadding,
+  isNavOpen,
+  setIsNavOpen,
+}) => {
+  const burgerMenuClasses = "cursor-pointer ml-auto mr-4 md:hidden";
+  const currentPathname = usePathname();
+
+  const toggleNavOpen = () => {
+    if (setIsNavOpen !== undefined) setIsNavOpen((prevState) => !prevState);
+  };
 
   useGSAP(() => {
-    if (isHome && (!hasVisited || refresh)) slideUpFadeIn("#navbar");
-  }, []);
+    opacityFadeIn("#nav-menu");
+  }, [isNavOpen]);
 
   return (
-    <header
-      id="navbar"
-      className={`
+    <>
+      <header
+        id="navbar"
+        className={`
           ${fixed ? "fixed" : ""}
           items-center
           grid grid-cols-[auto_1fr] md:grid-cols-3 w-full
@@ -51,40 +64,82 @@ const Navbar = ({ fixed, hasBorder, hasLeftPadding, isHome }: Props) => {
           z-10 backdrop-blur-md
           ${hasBorder ? "border-b-2 border-b-border" : ""}
         `}
-    >
-      <Logo />
+      >
+        <Logo />
 
-      {/* Nav sections */}
-      <nav
-        className={`
-            flex flex-row items-center justify-center
+        {/* Nav sections - Desktop */}
+        <nav
+          className={`
+            hidden md:flex flex-row items-center justify-center
             gap-4 md:gap-12
             font-family-nav-link text-text-secondary
           `}
-      >
-        {sections.map((section, index) => (
-          <a
-            key={`nav-${index}`}
-            href={section.href}
-            className={`
+        >
+          {sections.map((section, index) => (
+            <a
+              key={`nav-${index}`}
+              href={section.href}
+              className={`
                 hover:text-white
                 duration-(--transition-duration)
               `}
-          >
-            {section.name}
-          </a>
-        ))}
-      </nav>
+            >
+              {section.name}
+            </a>
+          ))}
+        </nav>
 
-      {/* FPS counter */}
-      <div className="md:flex hidden flex-row items-center ml-auto mr-12 gap-4 font-family-mono">
-        {/* Circle */}
-        <div className="bg-red-600/80 w-3.5 h-3.5 rounded-full motion-safe:animate-pulse" />
-        <div className="text-text-secondary justify-center font-family-mono">
-          FPS 24.00
+        {/* FPS counter */}
+        <div className="md:flex hidden flex-row items-center ml-auto mr-12 gap-4 font-family-mono">
+          {/* Circle */}
+          <div className="bg-red-600/80 w-3.5 h-3.5 rounded-full motion-safe:animate-pulse" />
+          <div className="text-text-secondary justify-center font-family-mono">
+            FPS 24.00
+          </div>
         </div>
-      </div>
-    </header>
+
+        {/* Burger menu - Mobile */}
+        {isNavOpen ? (
+          <FiX
+            color="white"
+            size={"1.5rem"}
+            className={burgerMenuClasses}
+            onClick={toggleNavOpen}
+          />
+        ) : (
+          <FiMenu
+            color="white"
+            size={"1.5rem"}
+            className={burgerMenuClasses}
+            onClick={toggleNavOpen}
+          />
+        )}
+      </header>
+      <Activity mode={isNavOpen ? "visible" : "hidden"}>
+        <div
+          id="nav-menu"
+          className="h-dvh flex flex-col items-start justify-center text-white"
+        >
+          {sections.map((section, index) => (
+            <div
+              key={`nav-${index}`}
+              className="flex flex-row items-end space-x-4 ml-8"
+            >
+              <div className="font-family-mono mb-1">0{index + 1}</div>
+              <a
+                href={section.href}
+                className={`font-family-header text-6xl cursor-pointer ${section.href === currentPathname ? "underline" : "hover:underline"}`}
+              >
+                {section.name}
+              </a>
+            </div>
+          ))}
+        </div>
+        <div className="fixed bottom-0">
+          <Footer isNavbar />
+        </div>
+      </Activity>
+    </>
   );
 };
 
