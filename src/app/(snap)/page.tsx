@@ -12,6 +12,7 @@ import images from "@/utils/images";
 import Button from "@/components/Button";
 import Footer from "@/components/Footer";
 import Metadata from "@/components/Metadata";
+import { useNav } from "@/contexts/NavContext";
 
 const PRELOADER_TOTAL_DURATION = 4_000;
 const PRODUCTIONS_CATEGORIES = [
@@ -32,7 +33,7 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
   const preloaderLogoVideoRef = useRef<HTMLVideoElement>(null);
   const [hasVisited, setHasVisited] = useState<boolean | null>(null);
-  const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+  const { isNavOpen } = useNav();
 
   const refresh = isPageRefresh();
 
@@ -112,12 +113,7 @@ export default function Home() {
 
       <Activity mode={loading ? "hidden" : "visible"}>
         <main id="container" className="h-screen">
-          <Navbar
-            fixed
-            hasLeftPadding
-            isNavOpen={isNavOpen}
-            setIsNavOpen={setIsNavOpen}
-          />
+          <Navbar fixed hasLeftPadding />
           <Activity mode={isNavOpen ? "hidden" : "visible"}>
             {/* Hero Section */}
             <section className="relative text-white panel snap-start">
