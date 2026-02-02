@@ -3,10 +3,11 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Metadata from "@/components/Metadata";
-import { Activity, Suspense, useState } from "react";
+import { Activity, Suspense } from "react";
+import { useNav } from "@/contexts/NavContext";
 
 export default function Contacts() {
-  const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+  const { isNavOpen } = useNav();
 
   return (
     <>
@@ -17,11 +18,7 @@ export default function Contacts() {
       />
 
       <main className="flex h-dvh flex-col">
-        <Navbar
-          hasLeftPadding
-          isNavOpen={isNavOpen}
-          setIsNavOpen={setIsNavOpen}
-        />
+        <Navbar hasLeftPadding />
 
         <Activity mode={isNavOpen ? "hidden" : "visible"}>
           <Suspense fallback={<Footer fullScreen usesDate={false} />}>
