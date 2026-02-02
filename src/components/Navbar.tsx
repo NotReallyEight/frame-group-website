@@ -5,15 +5,14 @@ import { useGSAP } from "@gsap/react";
 import { opacityFadeIn } from "@/utils/gsap";
 import { FiMenu, FiX } from "react-icons/fi";
 import { usePathname } from "next/navigation";
-import { Activity, type Dispatch, type FC, type SetStateAction } from "react";
+import { Activity, type FC } from "react";
 import Footer from "./Footer";
+import { useNav } from "@/contexts/NavContext";
 
 type Props = {
   fixed?: boolean;
   hasBorder?: boolean;
   hasLeftPadding?: boolean;
-  isNavOpen?: boolean;
-  setIsNavOpen?: Dispatch<SetStateAction<boolean>>;
 };
 
 const sections: {
@@ -34,21 +33,15 @@ const sections: {
   },
 ];
 
-const Navbar: FC<Props> = ({
-  fixed,
-  hasBorder,
-  hasLeftPadding,
-  isNavOpen,
-  setIsNavOpen,
-}) => {
+const Navbar: FC<Props> = ({ fixed, hasBorder, hasLeftPadding }) => {
   const burgerMenuClasses = "cursor-pointer ml-auto mr-4 md:hidden";
   const currentPathname = usePathname();
+  const { isNavOpen, setIsNavOpen } = useNav();
 
-  const toggleNavOpen = () => {
-    if (setIsNavOpen !== undefined) setIsNavOpen((prevState) => !prevState);
-  };
-
+  const toggleNavOpen = () => setIsNavOpen((prevState) => !prevState);
   useGSAP(() => {
+    if (!isNavOpen) return;
+
     opacityFadeIn("#nav-menu");
   }, [isNavOpen]);
 
@@ -101,21 +94,24 @@ const Navbar: FC<Props> = ({
         </div>
 
         {/* Burger menu - Mobile */}
-        {isNavOpen ? (
-          <FiX
-            color="white"
-            size={"1.5rem"}
-            className={burgerMenuClasses}
-            onClick={toggleNavOpen}
-          />
-        ) : (
-          <FiMenu
-            color="white"
-            size={"1.5rem"}
-            className={burgerMenuClasses}
-            onClick={toggleNavOpen}
-          />
-        )}
+        <button
+          type="button"
+          onClick={toggleNavOpen}
+          aria-label={
+            isNavOpen
+              ? "Chiudi menù di navigazione"
+              : "Apri menù di navigazione"
+          }
+          aria-expanded={Boolean(isNavOpen)}
+          aria-controls="nav-menu"
+          className={burgerMenuClasses}
+        >
+          {isNavOpen ? (
+            <FiX color="white" size={"1.5rem"} />
+          ) : (
+            <FiMenu color="white" size={"1.5rem"} />
+          )}
+        </button>
       </header>
       <Activity mode={isNavOpen ? "visible" : "hidden"}>
         <div
