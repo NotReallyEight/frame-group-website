@@ -1,6 +1,7 @@
 import "./globals.css";
 import { ibmPlexMono, inter, spaceGrotesk } from "./fonts";
 import { Metadata } from "next";
+import { NavProvider } from "@/contexts/NavContext";
 
 const fonts = [
   ibmPlexMono.variable,
@@ -31,8 +32,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={fonts}>{children}</body>
-    </html>
+    <NavProvider>
+      <html lang="en">
+        <body className={fonts}>{children}</body>
+      </html>
+    </NavProvider>
   );
 }
