@@ -81,14 +81,25 @@ export default function Home() {
 
       <Activity mode={loading ? "visible" : "hidden"}>
         <div
-          className={`absolute inset-0 flex h-dvh w-dvw items-center justify-center bg-black transition-opacity duration-(--grid-fade-in-duration)`}
+          className={`
+            absolute inset-0
+            flex h-dvh w-dvw
+            items-center justify-center
+            bg-black
+            transition-opacity duration-(--grid-fade-in-duration)
+          `}
           role="status"
           aria-live="polite"
           aria-label="Caricamento pagina in corso"
         >
           <video
             ref={preloaderLogoVideoRef}
-            className="h-full w-full scale-50 object-cover object-center sm:object-center lg:scale-75"
+            className={`
+              h-full w-full
+              scale-50
+              object-cover object-center
+              sm:object-center lg:scale-75
+            `}
             muted
             playsInline
             preload="auto"
@@ -100,7 +111,7 @@ export default function Home() {
       </Activity>
 
       <Activity mode={loading ? "hidden" : "visible"}>
-        <main id="container">
+        <main id="container" className="h-screen">
           <Navbar
             fixed
             hasLeftPadding
@@ -110,7 +121,15 @@ export default function Home() {
           <Activity mode={isNavOpen ? "hidden" : "visible"}>
             {/* Hero Section */}
             <section className="relative text-white panel snap-start">
-              <div className="flex flex-col items-start justify-center h-dvh px-8 md:px-12 lg:px-[10dvw] gap-8 md:max-w-half-width">
+              <div
+                className={`
+                  flex flex-col items-start justify-center
+                  h-dvh
+                  px-8 md:px-12 lg:px-[10dvw]
+                  gap-8
+                  md:max-w-half-width
+                `}
+              >
                 <h1 className="font-family-header *:block">
                   <span>Ogni</span>
                   <span>Grande</span>
@@ -123,7 +142,16 @@ export default function Home() {
                 <Button onClick={() => {}} text="Start Project" />
               </div>
               {/* Scroll down button */}
-              <div className="absolute left-4 bottom-8 md:left-8 md:bottom-12 lg:left-12 font-family-mono uppercase animate-bounce flex flex-col text-text-secondary">
+              <div
+                className={`
+                  absolute left-4 bottom-8
+                  md:left-8 md:bottom-12 lg:left-12
+                  font-family-mono uppercase
+                  animate-bounce
+                  flex flex-col
+                  text-text-secondary
+                `}
+              >
                 <div className="rotate-90 bg-clip-text text-transparent bg-linear-to-r from-white to-text-secondary">
                   Scroll
                 </div>
@@ -146,8 +174,11 @@ export default function Home() {
 
                   <div className="flex flex-col space-y-2 md:space-y-4">
                     <div
-                      className="text-accent font-family-mono uppercase
-                                text-xs"
+                      className={`
+                        text-accent
+                        font-family-mono uppercase
+                        text-xs
+                      `}
                     >
                       &#47;&#47; Services
                     </div>
@@ -172,17 +203,24 @@ export default function Home() {
                   </div>
                   {/* Button */}
                   <button
-                    className="bg-primary border-2 border-white
-                             font-family-button flex flex-row items-center
-                             w-[75%] text-left p-4 md:p-8 md:text-xl lg:text-3xl cursor-pointer
-                             hover:bg-white hover:text-primary
-                             duration-(--transition-duration) group h-fit md:h-full"
+                    className={`
+                      bg-primary border-2 border-white
+                      font-family-button
+                      flex flex-row items-center
+                      w-[75%] text-left
+                      p-4 md:p-8
+                      md:text-xl lg:text-3xl
+                      cursor-pointer
+                      hover:bg-white hover:text-primary
+                      duration-(--transition-duration)
+                      group h-fit md:h-full
+                    `}
                     type="button"
                   >
                     <div>What do you want to create?</div>
                     <FiArrowUpRight
                       size={50}
-                      className="group-hover:rotate-45 duration-(--transition-duration)"
+                      className={`group-hover:rotate-45 duration-(--transition-duration)`}
                     />
                   </button>
                 </div>

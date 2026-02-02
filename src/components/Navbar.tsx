@@ -59,7 +59,8 @@ const Navbar: FC<Props> = ({
         className={`
           ${fixed ? "fixed" : ""}
           items-center
-          grid grid-cols-[auto_1fr] md:grid-cols-3 w-full
+          grid grid-cols-[auto_1fr]
+          md:grid-cols-3 w-full
           ${hasLeftPadding ? "md:pl-12" : "md:pl-4"}
           z-10 backdrop-blur-md
           ${hasBorder ? "border-b-2 border-b-border" : ""}
@@ -70,7 +71,8 @@ const Navbar: FC<Props> = ({
         {/* Nav sections - Desktop */}
         <nav
           className={`
-            hidden md:flex flex-row items-center justify-center
+            hidden md:flex
+            flex-row items-center justify-center
             gap-4 md:gap-12
             font-family-nav-link text-text-secondary
           `}
@@ -118,7 +120,11 @@ const Navbar: FC<Props> = ({
       <Activity mode={isNavOpen ? "visible" : "hidden"}>
         <div
           id="nav-menu"
-          className="h-dvh flex flex-col items-start justify-center text-white"
+          className={`
+            h-full flex flex-col
+            items-start justify-center
+            text-white
+          `}
         >
           {sections.map((section, index) => (
             <div
@@ -128,7 +134,12 @@ const Navbar: FC<Props> = ({
               <div className="font-family-mono mb-1">0{index + 1}</div>
               <a
                 href={section.href}
-                className={`font-family-header text-6xl cursor-pointer ${section.href === currentPathname ? "underline" : "hover:underline"}`}
+                className={`
+                  font-family-header
+                  text-6xl
+                  cursor-pointer
+                  ${section.href === currentPathname ? "underline" : "hover:underline"}
+                `}
               >
                 {section.name}
               </a>

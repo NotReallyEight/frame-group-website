@@ -38,15 +38,19 @@ const Footer: React.FC<Props> = ({ fullScreen, isNavbar, usesDate = true }) => (
     <Activity mode={isNavbar ? "hidden" : "visible"}>
       <div
         className={`
-        grid grid-cols-1 md:grid-cols-2
-        gap-8 md:gap-12
-        items-center justify-center
-        ${fullScreen ? "h-full" : ""}
-      `}
+          grid grid-cols-1
+          md:grid-cols-2
+          gap-8 md:gap-12
+          items-center justify-center
+          ${fullScreen ? "h-full" : ""}
+        `}
       >
         <div className="flex flex-col gap-4">
           <div
-            className={`font-family-header group ${fullScreen ? "text-8xl xl:text-9xl xl:text-10xl" : ""}`}
+            className={`
+              font-family-header group
+              ${fullScreen ? "text-8xl xl:text-9xl xl:text-10xl" : ""}
+            `}
           >
             Let&apos;s
             <br />
@@ -94,13 +98,13 @@ const Footer: React.FC<Props> = ({ fullScreen, isNavbar, usesDate = true }) => (
             href={link.href}
             key={`social-link-${index}`}
             className={`
-                font-family-regular-lg
-                w-full xl:w-auto
-                text-center xl:text-left
-                text-text-muted hover:text-white
-                duration-(--transition-duration)
-                text-xs tracking-widest font-bold uppercase
-              `}
+              font-family-regular-lg
+              w-full xl:w-auto
+              text-center xl:text-left
+              text-text-muted hover:text-white
+              duration-(--transition-duration)
+              text-xs tracking-widest font-bold uppercase
+            `}
           >
             {link.label}
           </a>
