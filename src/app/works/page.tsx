@@ -3,10 +3,11 @@
 import { PickerLinkBackground } from "@/components/MainScreenPicker/PickerLinkBackground";
 import Metadata from "@/components/Metadata";
 import Navbar from "@/components/Navbar";
-import { Activity, useState } from "react";
+import { useNav } from "@/contexts/NavContext";
+import { Activity } from "react";
 
 export default function Works() {
-  const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+  const { isNavOpen } = useNav();
 
   return (
     <>
@@ -18,7 +19,7 @@ export default function Works() {
       <div className="grid grid-cols-1 md:grid-cols-[2rem_1fr] grid-rows-[auto_1fr] text-white h-dvh p-0">
         <div className="hidden md:flex ml-8 w-px bg-border h-full" />
         {/* Header */}
-        <Navbar isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+        <Navbar />
         <Activity mode={isNavOpen ? "hidden" : "visible"}>
           <div className="hidden md:flex ml-8 w-px bg-border h-full" />
           {/* Grid */}
