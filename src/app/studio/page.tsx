@@ -37,7 +37,15 @@ export default function Studio() {
         <Navbar hasLeftPadding fixed />
 
         <Activity mode={isNavOpen ? "hidden" : "visible"}>
-          <div className="h-dvh flex flex-col items-center justify-center text-white text-center space-y-8">
+          <div
+            className="
+              h-dvh
+              flex flex-col
+              items-center justify-center
+              text-white text-center
+              space-y-8
+            "
+          >
             {/* Hero section */}
             <div className="font-family-header">
               THE
@@ -54,7 +62,16 @@ export default function Studio() {
           </div>
 
           {/* Studio Planimetry */}
-          <div className="md:h-dvh grid grid-cols-1 md:grid-cols-[1fr_auto_2fr] space-y-4 md:space-y-0 items-center p-4 md:p-8 xl:p-12">
+          <div
+            className="
+              md:h-dvh
+              grid grid-cols-1
+              md:grid-cols-[1fr_auto_2fr]
+              space-y-4 md:space-y-0
+              items-center
+              p-4 md:p-8 xl:p-12
+            "
+          >
             <div className="flex flex-col text-white space-y-4 xl:ml-4">
               <div className="font-family-secondary">
                 Floor
@@ -82,13 +99,29 @@ export default function Studio() {
           </div>
 
           {/* Visual Reference */}
-          <div className="relative aspect-auto md:aspect-video overflow-hidden">
+          <div
+            className="
+              relative
+              aspect-auto
+              md:aspect-video
+              overflow-hidden
+            "
+          >
             <Image
               alt="18th Birthdays Image"
               src={images.birthdays.header[1]}
-              className="w-full aspect-auto md:aspect-video object-cover object-bottom"
+              className="
+                w-full aspect-auto
+                md:aspect-video
+                object-cover object-bottom
+              "
             />
-            <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/60 to-black" />
+            <div
+              className="
+                pointer-events-none absolute inset-0
+                bg-linear-to-b from-black/60 to-black
+              "
+            />
           </div>
 
           <Suspense fallback={<Footer usesDate={false} />}>
