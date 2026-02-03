@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Activity } from "react";
 
 type Props = {
   fullScreen?: boolean;
+  isNavbar?: boolean;
   usesDate?: boolean;
 };
 
@@ -23,7 +24,7 @@ const SOCIAL_LINKS: {
   },
 ];
 
-const Footer: React.FC<Props> = ({ fullScreen, usesDate = true }) => (
+const Footer: React.FC<Props> = ({ fullScreen, isNavbar, usesDate = true }) => (
   <footer
     className={`
         flex flex-col snap-end
@@ -34,34 +35,39 @@ const Footer: React.FC<Props> = ({ fullScreen, usesDate = true }) => (
         ${fullScreen ? "h-full justify-between" : ""}
       `}
   >
-    <div
-      className={`
-        grid grid-cols-1 md:grid-cols-2
-        gap-8 md:gap-12
-        items-center justify-center
-        ${fullScreen ? "h-full" : ""}
-      `}
-    >
-      <div className="flex flex-col gap-4">
-        <div
-          className={`font-family-header group ${fullScreen ? "text-8xl xl:text-9xl xl:text-10xl" : ""}`}
-        >
-          Let&apos;s
-          <br />
-          <span className="group-hover:text-accent duration-(--transition-duration)">
-            Create.
-          </span>
+    <Activity mode={isNavbar ? "hidden" : "visible"}>
+      <div
+        className={`
+          grid grid-cols-1
+          md:grid-cols-2
+          gap-8 md:gap-12
+          items-center justify-center
+          ${fullScreen ? "h-full" : ""}
+        `}
+      >
+        <div className="flex flex-col gap-4">
+          <div
+            className={`
+              font-family-header group
+              ${fullScreen ? "text-8xl xl:text-9xl xl:text-10xl" : ""}
+            `}
+          >
+            Let&apos;s
+            <br />
+            <span className="group-hover:text-accent duration-(--transition-duration)">
+              Create.
+            </span>
+          </div>
+          <div className="xl:w-[50%] font-family-regular-md text-text-secondary pl-4 border-l-2 border-l-accent">
+            Have a project in mind? We are currently accepting new clients for
+            Q4 2024.
+          </div>
         </div>
-        <div className="xl:w-[50%] font-family-regular-md text-text-secondary pl-4 border-l-2 border-l-accent">
-          Have a project in mind? We are currently accepting new clients for Q4
-          2024.
-        </div>
-      </div>
 
-      <div className="flex flex-col items-start md:items-end gap-2 md:gap-4">
-        <a
-          href="mailto:antonio@framegroup.it"
-          className={`
+        <div className="flex flex-col items-start md:items-end gap-2 md:gap-4">
+          <a
+            href="mailto:antonio@framegroup.it"
+            className={`
               font-family-regular-lg font-light
               text-2xl md:text-3xl xl:text-4xl
               hover:text-accent
@@ -70,17 +76,18 @@ const Footer: React.FC<Props> = ({ fullScreen, usesDate = true }) => (
               hover:after:scale-x-100 hover:after:border-b-accent
               after:origin-left after:duration-(--grid-fade-in-duration)
             `}
-        >
-          antonio@framegroup.it
-        </a>
-        <div className="flex flex-col gap-1 items-start md:items-end text-text-muted font-family-regular-md">
-          <a href="tel:+390212345678">+39 02 1234 5678</a>
-          <div className="md:text-right">
-            Via Alfredo Bartolomei, snc, Sant&apos;Angelo dei Lombardi, IT
+          >
+            antonio@framegroup.it
+          </a>
+          <div className="flex flex-col gap-1 items-start md:items-end text-text-muted font-family-regular-md">
+            <a href="tel:+390212345678">+39 02 1234 5678</a>
+            <div className="md:text-right">
+              Via Alfredo Bartolomei, snc, Sant&apos;Angelo dei Lombardi, IT
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Activity>
 
     <div className="h-px w-full bg-border" />
 
@@ -91,13 +98,13 @@ const Footer: React.FC<Props> = ({ fullScreen, usesDate = true }) => (
             href={link.href}
             key={`social-link-${index}`}
             className={`
-                font-family-regular-lg
-                w-full xl:w-auto
-                text-center xl:text-left
-                text-text-muted hover:text-white
-                duration-(--transition-duration)
-                text-xs tracking-widest font-bold uppercase
-              `}
+              font-family-regular-lg
+              w-full xl:w-auto
+              text-center xl:text-left
+              text-text-muted hover:text-white
+              duration-(--transition-duration)
+              text-xs tracking-widest font-bold uppercase
+            `}
           >
             {link.label}
           </a>

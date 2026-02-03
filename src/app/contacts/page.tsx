@@ -1,12 +1,14 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
 import Footer from "@/components/Footer";
 import Metadata from "@/components/Metadata";
-import { Suspense } from "react";
+import { Activity, Suspense } from "react";
+import { useNav } from "@/contexts/NavContext";
 
 export default function Contacts() {
+  const { isNavOpen } = useNav();
+
   return (
     <>
       <Metadata
@@ -17,11 +19,12 @@ export default function Contacts() {
 
       <main className="flex h-dvh flex-col">
         <Navbar hasLeftPadding />
-        <ScrollToTopButton />
 
-        <Suspense fallback={<Footer fullScreen usesDate={false} />}>
-          <Footer fullScreen />
-        </Suspense>
+        <Activity mode={isNavOpen ? "hidden" : "visible"}>
+          <Suspense fallback={<Footer fullScreen usesDate={false} />}>
+            <Footer fullScreen />
+          </Suspense>
+        </Activity>
       </main>
     </>
   );
