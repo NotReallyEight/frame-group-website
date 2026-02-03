@@ -108,7 +108,7 @@ export default function Studio() {
             "
           >
             <Image
-              alt="18th Birthdays Image"
+              alt="Riferimento visivo: esempio di allestimento nello studio fotografico Frame"
               src={images.birthdays.header[1]}
               className="
                 w-full aspect-auto
